@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EarnHub | Digital Skills & Online Opportunities</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f7faf8;
+    color:#111827;
+    line-height:1.6;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #e5e7eb;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+    color:#08a95b;
+}
+
+.logo span{
+    color:#111827;
+}
+
+.nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#374151;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:#08a95b;
+}
+
+.menu-btn{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    min-height:650px;
+    padding:90px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:50px;
+}
+
+.hero-content{
+    flex:1;
+}
+
+.badge{
+    display:inline-block;
+    background:#e6fff2;
+    color:#079650;
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:58px;
+    line-height:1.1;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    color:#08a95b;
+}
+
+.hero p{
+    max-width:600px;
+    color:#667085;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    background:#08a95b;
+    color:white;
+    padding:14px 28px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#07884a;
+    transform:translateY(-2px);
+}
+
+.hero-card{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.card-box{
+    width:390px;
+    min-height:390px;
+    border-radius:30px;
+    background:linear-gradient(145deg,#eafff3,#ffffff);
+    box-shadow:0 25px 60px rgba(0,0,0,.10);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+    text-align:center;
+}
+
+.card-icon{
+    width:100px;
+    height:100px;
+    border-radius:25px;
+    background:#08a95b;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:45px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.card-box h2{
+    margin-bottom:10px;
+}
+
+.card-box p{
+    color:#667085;
+}
+
+section{
+    padding:85px 25px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.section-title p{
+    color:#667085;
+}
+
+.notice{
+    background:#111827;
+    color:white;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+}
+
+.notice h2{
+    color:#39e58c;
+    margin-bottom:15px;
+}
+
+.points{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:40px;
+}
+
+.point{
+    background:white;
+    padding:30px 20px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.point .icon{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.point h3{
+    margin-bottom:8px;
+}
+
+.point p{
+    color:#667085;
+    font-size:14px;
+}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.step{
+    background:white;
+    border-radius:18px;
+    padding:30px 22px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+    position:relative;
+}
+
+.step-number{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#08a95b;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.step h3{
+    margin-bottom:8px;
+}
+
+.step p{
+    color:#667085;
+    font-size:14px;
+}
+
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-box{
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,.07);
+}
+
+.about-box h2{
+    font-size:38px;
+    margin-bottom:20px;
+}
+
+.about-box p{
+    color:#667085;
+    margin-bottom:15px;
+}
+
+.founder{
+    background:#111827;
+    color:white;
+}
+
+.founder-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.founder-photo{
+    min-height:350px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#182333,#07111f);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+    font-weight:bold;
+    color:#39e58c;
+    border:1px solid #263345;
+}
+
+.founder-content h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.founder-content h2 span{
+    color:#39e58c;
+}
+
+.founder-content p{
+    color:#c5cbd4;
+    margin-bottom:20px;
+}
+
+.reviews{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.review{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.stars{
+    color:#f5b301;
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.review p{
+    color:#667085;
+    margin-bottom:20px;
+}
+
+.review h3{
+    color:#111827;
+}
+
+.cta{
+    text-align:center;
+    background:#eafff3;
+}
+
+.cta h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.cta p{
+    color:#667085;
+    margin-bottom:25px;
+}
+
+footer{
+    background:#07111f;
+    color:#aeb8c5;
+    padding:45px 25px;
+}
+
+.footer-content{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.footer-logo{
+    color:#39e58c;
+    font-size:25px;
+    font-weight:bold;
+}
+
+footer p{
+    margin-top:8px;
+    font-size:14px;
+}
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:white;
+        flex-direction:column;
+        padding:25px;
+        box-shadow:0 10px 20px rgba(0,0,0,.08);
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding-top:60px;
+    }
+
+    .hero h1{
+        font-size:43px;
+    }
+
+    .hero p{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .points,
+    .steps{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .about,
+    .founder-box{
+        grid-template-columns:1fr;
+    }
+
+    .reviews{
+        grid-template-columns:1fr;
+    }
+
+    .footer-content{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:550px){
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .card-box{
+        width:100%;
+    }
+
+    .points,
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2,
+    .cta h2,
+    .founder-content h2{
+        font-size:32px;
+    }
+
+    section{
+        padding:60px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+
+        <div class="logo">
+            Earn<span>Hub</span>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    </nav>
+</header>
+
+
+<!-- HERO -->
+
+<section id="home">
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✓ Digital Skills & Online Opportunities
+        </div>
+
+        <h1>
+            Learn Skills.<br>
+            <span>Build Your Future.</span>
+        </h1>
+
+        <p>
+            EarnHub is a digital platform focused on learning,
+            useful online skills and genuine digital opportunities.
+        </p>
+
+        <a href="#how" class="btn">
+            Get Started →
+        </a>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <div class="card-box">
+
+            <div class="card-icon">
+                EH
+            </div>
+
+            <h2>Welcome to EarnHub</h2>
+
+            <p>
+                Learn digital skills and explore online
+                opportunities from one place.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- TRUST / NOTICE -->
+
+<section>
+
+<div class="container">
+
+<div class="notice">
+
+    <h2>Simple. Transparent. Digital.</h2>
+
+    <p>
+        Our focus is on digital skills, useful information
+        and online opportunities.
+    </p>
+
+</div>
+
+
+<div class="points">
+
+    <div class="point">
+        <div class="icon">🎯</div>
+        <h3>Skill Focused</h3>
+        <p>Learn useful digital skills.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">💻</div>
+        <h3>Online Work</h3>
+        <p>Explore different digital opportunities.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">📚</div>
+        <h3>Learning</h3>
+        <p>Improve your knowledge step by step.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">🚀</div>
+        <h3>Growth</h3>
+        <p>Build your digital journey.</p>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- WHY CHOOSE -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+    <h2>Why Choose EarnHub?</h2>
+
+    <p>
+        A simple platform designed for people interested
+        in learning and digital opportunities.
+    </p>
+
+</div>
+
+
+<div class="points">
+
+    <div class="point">
+        <div class="icon">⚡</div>
+        <h3>Easy to Start</h3>
+        <p>Start learning without complicated steps.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">🧠</div>
+        <h3>Practical Skills</h3>
+        <p>Focus on useful online skills.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">📱</div>
+        <h3>Digital First</h3>
+        <p>Learn and work using digital platforms.</p>
+    </div>
+
+    <div class="point">
+        <div class="icon">🌱</div>
+        <h3>Keep Growing</h3>
+        <p>Build your knowledge consistently.</p>
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how">
+
+<div class="container">
+
+<div class="section-title">
+
+    <h2>How It Works</h2>
+
+    <p>
+        Follow these simple steps to begin your journey.
+    </p>
+
+</div>
+
+
+<div class="steps">
+
+    <div class="step">
+
+        <div class="step-number">1</div>
+
+        <h3>Explore</h3>
+
+        <p>
+            Explore the information and opportunities
+            available on EarnHub.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">2</div>
+
+        <h3>Learn</h3>
+
+        <p>
+            Understand the required digital skills
+            and processes.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">3</div>
+
+        <h3>Practice</h3>
+
+        <p>
+            Practice what you learn and improve
+            your digital knowledge.
+        </p>
+
+    </div>
+
+
+    <div class="step">
+
+        <div class="step-number">4</div>
+
+        <h3>Grow</h3>
+
+        <p>
+            Continue learning and explore new
+            digital opportunities.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="container">
+
+<div class="about">
+
+    <div class="about-box">
+
+        <h2>About EarnHub</h2>
+
+        <p>
+            EarnHub is built around digital learning,
+            online skills and opportunities.
+        </p>
+
+        <p>
+            Our aim is to make digital information
+            easier to understand and accessible to
+            people who want to grow online.
+        </p>
+
+        <p>
+            Start small, learn consistently and
+            keep improving.
+        </p>
+
+    </div>
+
+
+    <div class="about-box">
+
+        <h2>Our Vision</h2>
+
+        <p>
+            To create a simple digital ecosystem where
+            people can discover skills, learn new things
+            and understand online opportunities.
+        </p>
+
+        <a href="#how" class="btn">
+            Learn More
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOUNDER -->
+
+<section class="founder">
+
+<div class="container">
+
+<div class="founder-box">
+
+    <div class="founder-photo">
+        AYUSH
+    </div>
+
+
+    <div class="founder-content">
+
+        <h2>
+            Meet the Founder —
+            <span>Ayush</span>
+        </h2>
+
+        <p>
+            EarnHub was created with the idea of making
+            digital learning and online opportunities
+            easier to understand.
+        </p>
+
+        <p>
+            The goal is to build a simple platform where
+            people can learn, explore and grow digitally.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section id="reviews">
+
+<div class="container">
+
+<div class="section-title">
+
+    <h2>What People Say</h2>
+
+    <p>
+        Experiences shared by members of the community.
+    </p>
+
+</div>
+
+
+<div class="reviews">
+
+
+    <div class="review">
+
+        <div class="stars">
+            ★★★★★
+        </div>
+
+        <p>
+            "The platform is simple to understand and
+            the information is presented clearly."
+        </p>
+
+        <h3>Devank</h3>
+
+    </div>
+
+
+    <div class="review">
+
+        <div class="stars">
+            ★★★★★
+        </div>
+
+        <p>
+            "I liked the simple process and the way
+            everything is explained step by step."
+        </p>
+
+        <h3>Sohit</h3>
+
+    </div>
+
+
+    <div class="review">
+
+        <div class="stars">
+            ★★★★★
+        </div>
+
+        <p>
+            "A clean platform for people interested
+            in digital skills and online opportunities."
+        </p>
+
+        <h3>Ayushkant</h3>
+
+    </div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+<div class="container">
+
+    <h2>Ready to Start?</h2>
+
+    <p>
+        Explore EarnHub and begin your digital journey.
+    </p>
+
+    <a href="#home" class="btn">
+        Get Started →
+    </a>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-content">
+
+    <div>
+
+        <div class="footer-logo">
+            EarnHub
+        </div>
+
+        <p>
+            Digital Skills & Online Opportunities
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <p>
+            © 2026 EarnHub. All Rights Reserved.
+        </p>
+
+        <p>
+            Founded by Ayush
+        </p>
+
+    </div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+    const menu = document.getElementById("navLinks");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+</html>
