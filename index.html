@@ -80,132 +80,188 @@ header{
 }
 
 .logo-icon:after{
-    content:"E";
-    position:absolute;
-    left:7px;
-    top:-7px;
-    font-size:30px;
-    font-weight:800;
-    color:#111;
-}
-
-.logo span{
-    color:#4f46e5;
-}
-
-.menu{
-    display:flex;
-    align-items:center;
-    gap:42px;
-}
-
-.menu a{
-    color:#667085;
-    font-size:16px;
-    font-weight:500;
-    position:relative;
-    padding:29px 0;
-}
-
-.menu a:hover,
-.menu a.active{
-    color:#5146e5;
-}
-
-.menu a.active:after{
     content:"";
     position:absolute;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:3px;
-    background:#5146e5;
+    width:12px;
+    height:12px;
+    background:#ffb400;
+    border-radius:50%;
+    right:-5px;
+    top:8px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-links a{
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#ff9f00;
+}
+
+.nav-buttons{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.login-btn,
+.register-btn{
+    border-radius:8px;
+    padding:10px 17px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.login-btn{
+    border:1px solid #ddd;
+    background:#fff;
+}
+
+.register-btn{
+    background:#ffb400;
+    color:#111;
+    border:1px solid #ffb400;
 }
 
 /* ================= HERO ================= */
 
 .hero{
-    min-height:760px;
-    background:linear-gradient(180deg,#f4f6ff 0%,#eef2ff 100%);
+    min-height:620px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    text-align:center;
-    border-bottom:4px solid #5046e5;
+    background:
+    radial-gradient(circle at 85% 20%,rgba(255,193,7,.12),transparent 28%),
+    linear-gradient(135deg,#fff 0%,#fffdf5 100%);
 }
 
 .hero-content{
-    animation:fadeUp 1s ease;
-}
-
-.hero-logo{
-    margin:auto;
-    width:145px;
-    height:145px;
-    border-radius:50%;
-    border:10px solid #ffb900;
-    border-right-color:transparent;
-    display:flex;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
     align-items:center;
-    justify-content:center;
-    font-size:48px;
-    font-weight:800;
-    color:#111;
-    background:white;
-    box-shadow:0 15px 40px rgba(79,70,229,.12);
 }
 
 .hero h1{
-    margin-top:45px;
-    font-size:58px;
-    line-height:1.15;
+    font-size:54px;
+    line-height:1.08;
     font-weight:800;
+    letter-spacing:-2px;
+    margin-bottom:20px;
 }
 
 .hero h1 span{
-    color:#5b55e9;
+    color:#ffae00;
 }
 
 .hero p{
-    max-width:780px;
-    margin:25px auto 40px;
-    color:#536174;
-    font-size:19px;
+    color:#667085;
     line-height:1.8;
-}
-
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-}
-
-.btn{
-    padding:17px 35px;
-    border-radius:12px;
     font-size:16px;
+    max-width:560px;
+    margin-bottom:28px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    background:#ffb400;
+    border:none;
+    padding:14px 25px;
+    border-radius:9px;
     font-weight:700;
+    cursor:pointer;
     transition:.3s;
-    display:inline-block;
 }
 
-.btn-primary{
-    color:#fff;
-    background:linear-gradient(135deg,#5146e5,#665df0);
-    box-shadow:0 12px 25px rgba(81,70,229,.25);
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(255,180,0,.25);
 }
 
-.btn-outline{
-    color:#5146e5;
-    border:2px solid #5146e5;
+.secondary-btn{
+    border:1px solid #ddd;
+    padding:14px 25px;
+    border-radius:9px;
+    font-weight:600;
     background:#fff;
 }
 
-.btn:hover{
-    transform:translateY(-4px);
+.hero-card{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    position:relative;
+    overflow:hidden;
 }
 
-/* ================= COMMON ================= */
+.hero-card:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    background:#ffb400;
+    opacity:.12;
+    border-radius:50%;
+    right:-70px;
+    top:-70px;
+}
+
+.earning-box{
+    background:#111827;
+    color:#fff;
+    padding:24px;
+    border-radius:18px;
+}
+
+.earning-label{
+    font-size:13px;
+    color:#9ca3af;
+}
+
+.earning-value{
+    font-size:38px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:15px;
+}
+
+.stat{
+    background:#f8fafc;
+    padding:17px;
+    border-radius:12px;
+}
+
+.stat strong{
+    display:block;
+    font-size:21px;
+}
+
+.stat span{
+    font-size:11px;
+    color:#777;
+}
+
+/* ================= SECTIONS ================= */
 
 section{
     padding:90px 0;
@@ -213,367 +269,497 @@ section{
 
 .section-title{
     text-align:center;
-    margin-bottom:55px;
+    margin-bottom:50px;
 }
 
 .section-title h2{
-    font-size:40px;
+    font-size:36px;
     font-weight:800;
 }
 
-.section-title h2 span{
-    color:#574ee8;
-}
-
 .section-title p{
-    color:#657184;
-    margin-top:15px;
-    font-size:17px;
-    line-height:1.7;
+    color:#667085;
+    margin-top:10px;
 }
 
 .underline{
     width:55px;
     height:4px;
-    background:#574ee8;
+    background:#ffb400;
+    border-radius:20px;
     margin:14px auto 0;
-    border-radius:5px;
 }
 
-/* ================= VERIFIED ================= */
+/* ================= FEATURES ================= */
 
-.verified{
-    background:#e9edff;
-    text-align:center;
-    border-bottom:4px solid #5146e5;
+.features{
+    background:#fafafa;
 }
 
-.verified h2{
-    font-size:38px;
-    font-weight:800;
-}
-
-.verified h2 span{
-    color:#574ee8;
-}
-
-.verified p{
-    max-width:780px;
-    margin:18px auto 35px;
-    color:#4d5a70;
-    font-size:17px;
-    line-height:1.8;
-}
-
-.verified-buttons{
-    display:flex;
-    justify-content:center;
-    gap:25px;
-}
-
-.legit{
-    padding:15px 30px;
-    border:2px solid #19c98b;
-    border-radius:30px;
-    color:#087c59;
-    background:#dffff1;
-    font-weight:700;
-}
-
-/* ================= DIFFERENT ================= */
-
-.different{
-    background:#f5f5f7;
-}
-
-.diff-boxes{
+.feature-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
 }
 
-.diff-box{
+.feature-card{
     background:#fff;
-    padding:28px 15px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-    font-weight:700;
+    padding:30px;
+    border-radius:16px;
+    border:1px solid #eee;
     transition:.3s;
 }
 
-.diff-box:hover{
-    transform:translateY(-7px);
+.feature-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
 }
 
-/* ================= WHY ================= */
-
-.why{
-    background:#dff2ff;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-}
-
-.card{
-    background:#fff;
-    min-height:235px;
-    padding:35px 25px;
-    border-radius:14px;
-    text-align:center;
-    box-shadow:0 5px 14px rgba(0,0,0,.10);
-    transition:.35s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 18px 35px rgba(79,70,229,.18);
-}
-
-.icon{
-    font-size:42px;
-    color:#5146e5;
+.feature-icon{
+    width:52px;
+    height:52px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff5d6;
+    font-size:24px;
     margin-bottom:20px;
 }
 
-.card h3{
-    font-size:20px;
-    margin-bottom:13px;
+.feature-card h3{
+    margin-bottom:10px;
 }
 
-.card p{
-    color:#6c7688;
+.feature-card p{
+    color:#667085;
     line-height:1.7;
+    font-size:14px;
 }
 
-/* ================= JOURNEY ================= */
+/* ================= TASKS ================= */
 
-.journey{
-    background:#f6f7f9;
-}
-
-.journey-grid{
+.task-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:24px;
+    gap:22px;
 }
 
-.journey-card{
+.task-card{
+    border:1px solid #eee;
+    padding:28px;
+    border-radius:16px;
     background:#fff;
-    border-radius:14px;
-    padding:35px;
-    position:relative;
-    box-shadow:0 5px 14px rgba(0,0,0,.08);
+    transition:.3s;
 }
 
-.number{
-    position:absolute;
-    right:25px;
-    top:15px;
-    font-size:45px;
-    color:#edf0f5;
+.task-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(0,0,0,.07);
+}
+
+.task-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.task-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#fff6da;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.task-price{
+    color:#f59e0b;
     font-weight:800;
 }
 
-.journey-card h3{
-    font-size:20px;
-    margin-bottom:18px;
+.task-card h3{
+    margin-bottom:8px;
 }
 
-.journey-card p{
-    color:#697386;
-    line-height:1.7;
-    margin-bottom:20px;
-}
-
-.check{
-    color:#10b981;
-    margin-right:8px;
-}
-
-.list{
-    line-height:2.2;
+.task-card p{
     color:#667085;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* ================= HOW IT WORKS ================= */
+
+.how{
+    background:#fafafa;
+}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.step{
+    text-align:center;
+}
+
+.step-number{
+    width:55px;
+    height:55px;
+    margin:0 auto 18px;
+    background:#ffb400;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    font-weight:800;
+}
+
+.step h3{
+    margin-bottom:8px;
+}
+
+.step p{
+    color:#667085;
+    font-size:13px;
+    line-height:1.6;
 }
 
 /* ================= REVIEWS ================= */
 
-.reviews{
-    background:#e9edff;
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
 }
 
-.review-slider{
-    display:flex;
-    gap:24px;
-    overflow-x:auto;
-    padding:10px 5px 25px;
-    scroll-behavior:smooth;
-}
-
-.review-slider::-webkit-scrollbar{
-    height:5px;
-}
-
-.review-slider::-webkit-scrollbar-thumb{
-    background:#665df0;
-    border-radius:10px;
-}
-
-.review{
-    min-width:310px;
+.review-card{
+    border:1px solid #eee;
+    padding:28px;
+    border-radius:16px;
     background:#fff;
-    border-radius:14px;
-    padding:25px;
-    box-shadow:0 6px 15px rgba(0,0,0,.08);
-}
-
-.person{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.avatar{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#5146e5,#a39cff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-weight:700;
-    font-size:20px;
-}
-
-.person h3{
-    font-size:17px;
-}
-
-.person small{
-    color:#5146e5;
-}
-
-.review p{
-    color:#667085;
-    line-height:1.7;
-    margin:20px 0;
 }
 
 .stars{
-    color:#f59e0b;
-    letter-spacing:3px;
+    color:#ffb400;
+    letter-spacing:2px;
+    margin-bottom:15px;
 }
 
-/* ================= HOW ================= */
-
-.how{
-    background:#fff;
+.review-card p{
+    color:#667085;
+    font-size:14px;
+    line-height:1.8;
+    margin-bottom:20px;
 }
 
-.how-box{
-    background:#fff;
-    border-left:4px solid #5146e5;
-    padding:35px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-    border-radius:0 14px 14px 0;
-}
-
-.step{
-    background:#edf1ff;
-    margin:14px 0;
-    padding:17px 20px;
-    border-radius:8px;
+.reviewer{
     display:flex;
     align-items:center;
-    gap:15px;
-    font-weight:600;
-    transition:.3s;
+    gap:12px;
 }
 
-.step:hover{
-    transform:translateX(8px);
-}
-
-.step-number{
-    width:30px;
-    height:30px;
+.reviewer-avatar{
+    width:42px;
+    height:42px;
     border-radius:50%;
-    background:#5146e5;
-    color:white;
+    background:#111827;
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
+    font-weight:700;
+}
+
+.reviewer strong{
+    display:block;
+    font-size:14px;
+}
+
+.reviewer span{
+    color:#999;
+    font-size:11px;
 }
 
 /* ================= FOUNDER ================= */
 
 .founder{
-    background:#fff;
+    background:#fafafa;
 }
 
 .founder-box{
-    border-left:4px solid #5146e5;
+    max-width:700px;
+    margin:auto;
     text-align:center;
-    padding:55px 25px;
-    border-radius:0 14px 14px 0;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    background:#fff;
+    border-radius:22px;
+    padding:45px 30px;
+    box-shadow:0 15px 45px rgba(0,0,0,.06);
 }
 
 .founder-photo{
-    width:150px;
-    height:150px;
+    width:125px;
+    height:125px;
     border-radius:50%;
-    margin:25px auto;
-    background:linear-gradient(135deg,#5146e5,#8b83ff);
-    border:5px solid #5146e5;
+    margin:25px auto 18px;
+    background:#111827;
+    color:#ffb400;
     display:flex;
-    align-items:center;
     justify-content:center;
-    color:#fff;
-    font-size:45px;
+    align-items:center;
+    font-size:48px;
     font-weight:800;
+    overflow:hidden;
+    border:5px solid #ffb400;
 }
 
-.founder h3{
-    font-size:28px;
+.founder-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
+
+.founder-box h3{
+    font-size:24px;
 }
 
 .founder-role{
-    color:#5146e5;
-    font-weight:600;
-    margin:8px 0 25px;
+    color:#ffae00;
+    font-size:13px;
+    font-weight:700;
+    margin:5px 0 15px;
 }
 
-.founder p{
-    max-width:650px;
+.founder-box p{
+    max-width:570px;
     margin:auto;
     color:#667085;
     line-height:1.8;
+    font-size:14px;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+    padding:70px 0;
+}
+
+.cta-box{
+    background:#111827;
+    color:#fff;
+    border-radius:22px;
+    padding:55px 35px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.cta-box:before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    border:50px solid rgba(255,180,0,.08);
+    left:-100px;
+    top:-120px;
+}
+
+.cta-box h2{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.cta-box p{
+    color:#aeb4c0;
+    margin-bottom:25px;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-    background:#101426;
+    background:#0b1220;
     color:#fff;
-    text-align:center;
-    padding:35px 20px;
+    padding:50px 0 25px;
 }
 
-footer span{
-    color:#675df0;
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:35px;
+}
+
+.footer-brand p{
+    color:#9ca3af;
+    line-height:1.7;
+    font-size:13px;
+    margin-top:15px;
+    max-width:420px;
+}
+
+.footer-col h4{
+    margin-bottom:15px;
+}
+
+.footer-col a{
+    display:block;
+    color:#9ca3af;
+    font-size:13px;
+    margin:9px 0;
+}
+
+.footer-col a:hover{
+    color:#ffb400;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:20px;
+    color:#777;
+    font-size:12px;
+    text-align:center;
+}
+
+/* ================= AUTH MODAL ================= */
+
+.auth-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:5000;
+    padding:20px;
+}
+
+.auth-modal.active{
+    display:flex;
+}
+
+.auth-box{
+    width:100%;
+    max-width:430px;
+    background:#fff;
+    border-radius:20px;
+    padding:32px;
+    position:relative;
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.auth-close{
+    position:absolute;
+    right:18px;
+    top:14px;
+    border:none;
+    background:none;
+    font-size:25px;
+    cursor:pointer;
+    color:#666;
+}
+
+.auth-box h2{
+    font-size:27px;
+    margin-bottom:5px;
+}
+
+.auth-subtitle{
+    color:#777;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+.auth-form{
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+}
+
+.auth-form label{
+    font-size:12px;
+    font-weight:600;
+}
+
+.auth-form input{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    outline:none;
+    font-family:inherit;
+}
+
+.auth-form input:focus{
+    border-color:#ffb400;
+}
+
+.auth-submit{
+    border:none;
+    background:#ffb400;
+    padding:13px;
+    border-radius:9px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.auth-switch{
+    text-align:center;
+    font-size:12px;
+    color:#777;
+    margin-top:18px;
+}
+
+.auth-switch button{
+    border:none;
+    background:none;
+    color:#e69a00;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.auth-message{
+    font-size:12px;
+    margin-top:12px;
+    text-align:center;
+    min-height:18px;
+}
+
+.logged-user{
+    display:none;
+    align-items:center;
+    gap:10px;
+}
+
+.user-name{
+    font-size:13px;
+    font-weight:600;
+}
+
+.logout-btn{
+    border:1px solid #ddd;
+    background:#fff;
+    border-radius:8px;
+    padding:9px 14px;
+    cursor:pointer;
+    font-weight:600;
+    font-size:12px;
 }
 
 /* ================= ANIMATION ================= */
 
 .reveal{
     opacity:0;
-    transform:translateY(35px);
-    transition:all .8s ease;
+    transform:translateY(25px);
+    transition:all .7s ease;
 }
 
 .reveal.show{
@@ -581,93 +767,82 @@ footer span{
     transform:translateY(0);
 }
 
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
 /* ================= MOBILE ================= */
 
-@media(max-width:800px){
+@media(max-width:850px){
 
-    header{
-        height:auto;
-        padding:15px 0;
-    }
-
-    .nav{
-        flex-direction:column;
-        gap:12px;
-    }
-
-    .menu{
-        gap:15px;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .menu a{
-        padding:5px;
-        font-size:13px;
-    }
-
-    .menu a.active:after{
+    .nav-links{
         display:none;
     }
 
+    .hero-content{
+        grid-template-columns:1fr;
+    }
+
     .hero{
-        min-height:650px;
         padding:60px 0;
     }
 
     .hero h1{
-        font-size:38px;
+        font-size:42px;
     }
 
-    .hero p{
-        font-size:15px;
-    }
-
-    .buttons{
-        flex-direction:column;
-        width:85%;
-        margin:auto;
-    }
-
-    .verified h2{
-        font-size:29px;
-    }
-
-    .verified-buttons{
-        flex-direction:column;
-        align-items:center;
-    }
-
-    .diff-boxes{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .cards,
-    .journey-grid{
+    .feature-grid,
+    .task-grid,
+    .review-grid{
         grid-template-columns:1fr;
     }
 
-    .section-title h2{
-        font-size:30px;
+    .steps{
+        grid-template-columns:repeat(2,1fr);
+        gap:30px;
     }
 
-    section{
-        padding:65px 0;
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    header{
+        height:70px;
     }
 
     .logo{
-        font-size:22px;
+        font-size:21px;
+    }
+
+    .logo-icon{
+        width:34px;
+        height:34px;
+        border-width:5px;
+    }
+
+    .nav-buttons{
+        gap:5px;
+    }
+
+    .login-btn,
+    .register-btn{
+        padding:8px 10px;
+        font-size:11px;
+    }
+
+    .hero h1{
+        font-size:35px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .cta-box h2{
+        font-size:27px;
     }
 }
 </style>
@@ -675,421 +850,121 @@ footer span{
 
 <body>
 
-<!-- HEADER -->
-<header>
-    <nav class="nav">
+<!-- ================= HEADER ================= -->
 
-        <a href="#home" class="logo">
-            <div class="logo-icon"></div>
-            Earn<span>Hub</span>
+<header>
+    <div class="nav">
+
+        <a href="#" class="logo">
+            <span class="logo-icon"></span>
+            EarnHub
         </a>
 
-        <div class="menu">
-            <a href="#home" class="active">Home →</a>
-            <a href="#about">About⌄</a>
-            <a href="#login">Login →</a>
-            <a href="#register">Register →</a>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#how">How It Works</a>
+            <a href="#reviews">Reviews</a>
+        </nav>
+
+        <div class="nav-buttons" id="guestButtons">
+            <button class="login-btn" onclick="openAuth('login')">
+                Login
+            </button>
+
+            <button class="register-btn" onclick="openAuth('register')">
+                Register
+            </button>
         </div>
 
-    </nav>
+        <div class="logged-user" id="loggedUser">
+            <span class="user-name" id="userName"></span>
+            <button class="logout-btn" onclick="logoutUser()">
+                Logout
+            </button>
+        </div>
+
+    </div>
 </header>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
+
 <section class="hero" id="home">
 
-    <div class="container hero-content">
-
-        <div class="hero-logo">
-            EH
-        </div>
-
-        <h1>
-            Welcome to <span>EarnHub</span>
-        </h1>
-
-        <p>
-            Build Your Financial Freedom With Digital Skills -
-            Join our growing community for creating sustainable
-            online income opportunities with zero investment.
-        </p>
-
-        <div class="buttons">
-            <a href="#register" class="btn btn-primary">
-                Get Started →
-            </a>
-
-            <a href="#how" class="btn btn-outline">
-                How It Works →
-            </a>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- VERIFIED -->
-<section class="verified reveal">
-
     <div class="container">
 
-        <h2>
-            Officially <span>Verified & Trusted</span> Platform
-        </h2>
+        <div class="hero-content">
 
-        <p>
-            EarnHub is a digital learning and opportunity platform
-            designed to help beginners understand online skills,
-            tasks and earning opportunities.
-        </p>
+            <div class="reveal">
 
-        <div class="verified-buttons">
-
-            <a href="#" class="btn btn-primary">
-                📄 View Certificate
-            </a>
-
-            <div class="legit">
-                🛡 100% Legitimate
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- DIFFERENT -->
-<section class="different reveal">
-
-    <div class="container">
-
-        <div class="section-title">
-            <h2>What Makes Us Different</h2>
-        </div>
-
-        <div class="diff-boxes">
-
-            <div class="diff-box">No MLM</div>
-            <div class="diff-box">No Chain System</div>
-            <div class="diff-box">No Color Trading</div>
-            <div class="diff-box">No Product Selling</div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- WHY -->
-<section class="why reveal">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>
-                Why Choose <span>EarnHub?</span>
-            </h2>
-
-            <div class="underline"></div>
-
-            <p>
-                We provide everything you need to start learning
-                online skills with complete support and training.
-            </p>
-
-        </div>
-
-        <div class="cards">
-
-            <div class="card">
-                <div class="icon">🎓</div>
-                <h3>Expert Training</h3>
-                <p>
-                    Learn practical digital skills through
-                    beginner-friendly training.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">🤝</div>
-                <h3>24/7 Support</h3>
-                <p>
-                    Get guidance and support whenever you
-                    need help.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">₹</div>
-                <h3>Regular Income</h3>
-                <p>
-                    Learn different digital opportunities and
-                    ways to grow your income.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">📈</div>
-                <h3>Growth Path</h3>
-                <p>
-                    Follow a structured path from beginner
-                    to advanced level.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">👥</div>
-                <h3>Strong Community</h3>
-                <p>
-                    Connect with people learning and growing
-                    together.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">📱</div>
-                <h3>Work Anywhere</h3>
-                <p>
-                    Learn and work using your smartphone
-                    or computer.
-                </p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- JOURNEY -->
-<section class="journey reveal">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>Your Success Journey</h2>
-
-            <div class="underline"></div>
-
-            <p>
-                Our simple 3-step system takes you from beginner
-                to advanced digital skills.
-            </p>
-
-        </div>
-
-        <div class="journey-grid">
-
-            <div class="journey-card">
-
-                <div class="number">01</div>
-
-                <h3>Learn Basics</h3>
+                <h1>
+                    Learn Skills.<br>
+                    <span>Earn Online.</span>
+                </h1>
 
                 <p>
-                    Master the fundamentals of online work
-                    with beginner-friendly modules.
+                    EarnHub helps you discover digital skills,
+                    online tasks and earning opportunities from
+                    one simple platform.
                 </p>
 
-                <div class="list">
-                    <div><span class="check">✓</span> Basic digital skills</div>
-                    <div><span class="check">✓</span> Platform orientation</div>
-                    <div><span class="check">✓</span> Simple initial tasks</div>
+                <div class="hero-buttons">
+
+                    <button class="primary-btn"
+                            onclick="openAuth('register')">
+                        Get Started
+                    </button>
+
+                    <a href="#how" class="secondary-btn">
+                        How It Works
+                    </a>
+
                 </div>
 
             </div>
 
+            <div class="hero-card reveal">
 
-            <div class="journey-card">
+                <div class="earning-box">
 
-                <div class="number">02</div>
+                    <div class="earning-label">
+                        Potential Earnings
+                    </div>
 
-                <h3>Build Skills</h3>
+                    <div class="earning-value">
+                        ₹10,000+
+                    </div>
 
-                <p>
-                    Enhance your capabilities with advanced
-                    digital techniques.
-                </p>
-
-                <div class="list">
-                    <div><span class="check">✓</span> Content creation</div>
-                    <div><span class="check">✓</span> Social media skills</div>
-                    <div><span class="check">✓</span> Communication</div>
-                </div>
-
-            </div>
-
-
-            <div class="journey-card">
-
-                <div class="number">03</div>
-
-                <h3>Earn More</h3>
-
-                <p>
-                    Apply your skills to explore multiple
-                    online opportunities.
-                </p>
-
-                <div class="list">
-                    <div><span class="check">✓</span> Digital tools</div>
-                    <div><span class="check">✓</span> Team building</div>
-                    <div><span class="check">✓</span> Multiple opportunities</div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-<section class="different reveal" id="about">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>About <span>EarnHub</span></h2>
-
-            <div class="underline"></div>
-
-            <p>
-                Empowering beginners through digital skills
-                and online opportunities.
-            </p>
-
-        </div>
-
-        <div class="how-box">
-
-            <h2 style="text-align:center;margin-bottom:25px;">
-                Our Vision
-            </h2>
-
-            <p style="color:#667085;line-height:1.9;">
-                EarnHub provides a simple learning environment
-                for people who want to understand digital skills
-                and online opportunities.
-            </p>
-
-            <br>
-
-            <p style="color:#667085;line-height:1.9;">
-                Our goal is to create a supportive community where
-                members can learn, improve their skills and grow
-                together.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- REVIEWS -->
-<section class="reviews reveal">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>What Our Members Say</h2>
-
-            <div class="underline"></div>
-
-        </div>
-
-
-        <div class="review-slider">
-
-            <!-- DEVANK -->
-
-            <div class="review">
-
-                <div class="person">
-
-                    <div class="avatar">D</div>
-
-                    <div>
-                        <h3>Devank</h3>
-                        <small>Student</small>
+                    <div class="earning-label">
+                        Through digital tasks & opportunities
                     </div>
 
                 </div>
 
-                <p>
-                    "EarnHub helped me understand online skills
-                    in a simple and beginner-friendly way."
-                </p>
+                <div class="stats">
 
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-            </div>
-
-
-            <!-- SOHIT -->
-
-            <div class="review">
-
-                <div class="person">
-
-                    <div class="avatar">S</div>
-
-                    <div>
-                        <h3>Sohit</h3>
-                        <small>Freelancer</small>
+                    <div class="stat">
+                        <strong>100+</strong>
+                        <span>Tasks</span>
                     </div>
 
-                </div>
-
-                <p>
-                    "The training and community support made it
-                    easier for me to understand digital work."
-                </p>
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-            </div>
-
-
-            <!-- AYUSHKANT -->
-
-            <div class="review">
-
-                <div class="person">
-
-                    <div class="avatar">A</div>
-
-                    <div>
-                        <h3>Ayushkant</h3>
-                        <small>Content Creator</small>
+                    <div class="stat">
+                        <strong>24/7</strong>
+                        <span>Access</span>
                     </div>
 
-                </div>
+                    <div class="stat">
+                        <strong>Easy</strong>
+                        <span>To Start</span>
+                    </div>
 
-                <p>
-                    "A simple platform for learning digital skills
-                    and exploring online opportunities."
-                </p>
+                    <div class="stat">
+                        <strong>Online</strong>
+                        <span>Work</span>
+                    </div>
 
-                <div class="stars">
-                    ★★★★★
                 </div>
 
             </div>
@@ -1101,40 +976,249 @@ footer span{
 </section>
 
 
-<!-- HOW IT WORKS -->
-<section class="how reveal" id="how">
+<!-- ================= FEATURES ================= -->
+
+<section class="features" id="features">
 
     <div class="container">
 
-        <div class="section-title">
+        <div class="section-title reveal">
+
+            <h2>Why EarnHub?</h2>
+
+            <p>
+                Everything you need to start exploring
+                online opportunities.
+            </p>
+
+            <div class="underline"></div>
+
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    💻
+                </div>
+
+                <h3>Digital Skills</h3>
+
+                <p>
+                    Learn practical digital skills that can
+                    help you explore online work opportunities.
+                </p>
+
+            </div>
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>Online Tasks</h3>
+
+                <p>
+                    Discover different online tasks and
+                    opportunities from one convenient platform.
+                </p>
+
+            </div>
+
+            <div class="feature-card reveal">
+
+                <div class="feature-icon">
+                    🚀
+                </div>
+
+                <h3>Easy Start</h3>
+
+                <p>
+                    Start your journey with a simple interface
+                    designed for beginners.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TASKS ================= -->
+
+<section id="tasks">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <h2>Popular Tasks</h2>
+
+            <p>
+                Explore different categories of online work.
+            </p>
+
+            <div class="underline"></div>
+
+        </div>
+
+        <div class="task-grid">
+
+            <div class="task-card reveal">
+
+                <div class="task-top">
+
+                    <div class="task-icon">
+                        📱
+                    </div>
+
+                    <div class="task-price">
+                        ₹10+
+                    </div>
+
+                </div>
+
+                <h3>Lead Generation</h3>
+
+                <p>
+                    Find and submit genuine leads according
+                    to the task requirements.
+                </p>
+
+            </div>
+
+            <div class="task-card reveal">
+
+                <div class="task-top">
+
+                    <div class="task-icon">
+                        📝
+                    </div>
+
+                    <div class="task-price">
+                        ₹20+
+                    </div>
+
+                </div>
+
+                <h3>Data Entry</h3>
+
+                <p>
+                    Complete simple data-related tasks
+                    using online tools.
+                </p>
+
+            </div>
+
+            <div class="task-card reveal">
+
+                <div class="task-top">
+
+                    <div class="task-icon">
+                        📣
+                    </div>
+
+                    <div class="task-price">
+                        ₹15+
+                    </div>
+
+                </div>
+
+                <h3>Digital Promotion</h3>
+
+                <p>
+                    Explore social and digital promotion
+                    related opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how" id="how">
+
+    <div class="container">
+
+        <div class="section-title reveal">
 
             <h2>How It Works</h2>
 
+            <p>
+                Start exploring opportunities in four simple steps.
+            </p>
+
             <div class="underline"></div>
 
         </div>
 
+        <div class="steps">
 
-        <div class="how-box">
+            <div class="step reveal">
 
-            <div class="step">
-                <div class="step-number">1</div>
-                Join completely free
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>Register</h3>
+
+                <p>
+                    Create your free EarnHub account.
+                </p>
+
             </div>
 
-            <div class="step">
-                <div class="step-number">2</div>
-                Learn from our training
+            <div class="step reveal">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>Explore</h3>
+
+                <p>
+                    Browse available tasks and opportunities.
+                </p>
+
             </div>
 
-            <div class="step">
-                <div class="step-number">3</div>
-                Start with simple tasks
+            <div class="step reveal">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>Complete</h3>
+
+                <p>
+                    Follow the task instructions carefully.
+                </p>
+
             </div>
 
-            <div class="step">
-                <div class="step-number">4</div>
-                Grow your skills and opportunities
+            <div class="step reveal">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h3>Grow</h3>
+
+                <p>
+                    Continue learning and exploring new opportunities.
+                </p>
+
             </div>
 
         </div>
@@ -1144,19 +1228,126 @@ footer span{
 </section>
 
 
-<!-- FOUNDER -->
-<section class="founder reveal">
+<!-- ================= REVIEWS ================= -->
+
+<section id="reviews">
 
     <div class="container">
 
-        <div class="founder-box">
+        <div class="section-title reveal">
+
+            <h2>What Users Say</h2>
+
+            <p>
+                Feedback from the EarnHub community.
+            </p>
+
+            <div class="underline"></div>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div class="review-card reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    EarnHub has a simple interface and makes
+                    it easy to understand different online tasks.
+                </p>
+
+                <div class="reviewer">
+
+                    <div class="reviewer-avatar">
+                        D
+                    </div>
+
+                    <div>
+                        <strong>Devank</strong>
+                        <span>EarnHub User</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="review-card reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    The platform is easy to use and the task
+                    information is presented clearly.
+                </p>
+
+                <div class="reviewer">
+
+                    <div class="reviewer-avatar">
+                        S
+                    </div>
+
+                    <div>
+                        <strong>Sohit</strong>
+                        <span>EarnHub User</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="review-card reveal">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    A simple place to learn about digital
+                    opportunities and online work.
+                </p>
+
+                <div class="reviewer">
+
+                    <div class="reviewer-avatar">
+                        A
+                    </div>
+
+                    <div>
+                        <strong>Ayushkant</strong>
+                        <span>EarnHub User</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOUNDER ================= -->
+
+<section class="founder">
+
+    <div class="container">
+
+        <div class="founder-box reveal">
 
             <h2>Our Founder</h2>
 
             <div class="underline"></div>
 
             <div class="founder-photo">
-                A
+                <img src="ayush.jpg"
+                     alt="Ayush - Founder of EarnHub">
             </div>
 
             <h3>Ayush</h3>
@@ -1179,43 +1370,25 @@ footer span{
 </section>
 
 
-<!-- REGISTER -->
-<section class="verified reveal" id="register">
+<!-- ================= CTA ================= -->
+
+<section class="cta">
 
     <div class="container">
 
-        <h2>Ready to Get Started?</h2>
+        <div class="cta-box reveal">
 
-        <p>
-            Start your digital learning journey with EarnHub.
-        </p>
-
-        <a href="#" class="btn btn-primary">
-            Register Now →
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- LOGIN -->
-<section class="different reveal" id="login">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <h2>Welcome Back</h2>
+            <h2>Ready to Get Started?</h2>
 
             <p>
-                Login section can be connected to your
-                real account system later.
+                Create your free account and start exploring
+                digital opportunities.
             </p>
 
-            <a href="#" class="btn btn-primary">
-                Login →
-            </a>
+            <button class="primary-btn"
+                    onclick="openAuth('register')">
+                Create Free Account
+            </button>
 
         </div>
 
@@ -1224,71 +1397,635 @@ footer span{
 </section>
 
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    © 2026 <span>EarnHub</span> — All Rights Reserved.
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <div class="logo">
+                    <span class="logo-icon"></span>
+                    EarnHub
+                </div>
+
+                <p>
+                    Learn digital skills, explore online tasks
+                    and discover new opportunities with EarnHub.
+                </p>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h4>Quick Links</h4>
+
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#tasks">Tasks</a>
+                <a href="#how">How It Works</a>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h4>Account</h4>
+
+                <a href="javascript:void(0)"
+                   onclick="openAuth('login')">
+                    Login
+                </a>
+
+                <a href="javascript:void(0)"
+                   onclick="openAuth('register')">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 EarnHub. All Rights Reserved.
+        </div>
+
+    </div>
 
 </footer>
 
 
+<!-- ================= LOGIN MODAL ================= -->
+
+<div class="auth-modal" id="loginModal">
+
+    <div class="auth-box">
+
+        <button class="auth-close"
+                onclick="closeAuth()">
+            ×
+        </button>
+
+        <h2>Welcome Back</h2>
+
+        <div class="auth-subtitle">
+            Login to your EarnHub account
+        </div>
+
+        <form class="auth-form"
+              onsubmit="loginUser(event)">
+
+            <label>Email</label>
+
+            <input type="email"
+                   id="loginEmail"
+                   placeholder="Enter your email"
+                   required>
+
+            <label>Password</label>
+
+            <input type="password"
+                   id="loginPassword"
+                   placeholder="Enter your password"
+                   required>
+
+            <button type="submit"
+                    class="auth-submit">
+                Login
+            </button>
+
+        </form>
+
+        <div class="auth-message"
+             id="loginMessage"></div>
+
+        <div class="auth-switch">
+            Don't have an account?
+
+            <button onclick="switchAuth('register')">
+                Register
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= REGISTER MODAL ================= -->
+
+<div class="auth-modal" id="registerModal">
+
+    <div class="auth-box">
+
+        <button class="auth-close"
+                onclick="closeAuth()">
+            ×
+        </button>
+
+        <h2>Create Account</h2>
+
+        <div class="auth-subtitle">
+            Join EarnHub for free
+        </div>
+
+        <form class="auth-form"
+              onsubmit="registerUser(event)">
+
+            <label>Full Name</label>
+
+            <input type="text"
+                   id="registerName"
+                   placeholder="Enter your name"
+                   required>
+
+            <label>Email</label>
+
+            <input type="email"
+                   id="registerEmail"
+                   placeholder="Enter your email"
+                   required>
+
+            <label>Password</label>
+
+            <input type="password"
+                   id="registerPassword"
+                   placeholder="Create a password"
+                   minlength="6"
+                   required>
+
+            <label>Confirm Password</label>
+
+            <input type="password"
+                   id="registerConfirm"
+                   placeholder="Confirm your password"
+                   minlength="6"
+                   required>
+
+            <button type="submit"
+                    class="auth-submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="auth-message"
+             id="registerMessage"></div>
+
+        <div class="auth-switch">
+            Already have an account?
+
+            <button onclick="switchAuth('login')">
+                Login
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-/* SCROLL REVEAL ANIMATION */
+/*
+====================================================
+SUPABASE CONFIG
+====================================================
 
-const observer = new IntersectionObserver((entries) => {
+इन दोनों जगहों पर अपना Supabase Project URL
+और Anon/Public Key डालना है।
 
-    entries.forEach(entry => {
+SERVICE_ROLE KEY यहाँ बिल्कुल मत डालना।
+====================================================
+*/
 
-        if(entry.isIntersecting){
+const SUPABASE_URL =
+"PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
 
-            entry.target.classList.add("show");
+const SUPABASE_ANON_KEY =
+"PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+
+
+let supabaseClient = null;
+
+if(
+    SUPABASE_URL !== "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE" &&
+    SUPABASE_ANON_KEY !== "PASTE_YOUR_SUPABASE_ANON_KEY_HERE"
+){
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+}
+
+
+/* ================= AUTH MODAL ================= */
+
+function openAuth(type){
+
+    closeAuth();
+
+    if(type === "login"){
+
+        document
+        .getElementById("loginModal")
+        .classList.add("active");
+
+    }else{
+
+        document
+        .getElementById("registerModal")
+        .classList.add("active");
+
+    }
+
+}
+
+
+function closeAuth(){
+
+    document
+    .getElementById("loginModal")
+    .classList.remove("active");
+
+    document
+    .getElementById("registerModal")
+    .classList.remove("active");
+
+}
+
+
+function switchAuth(type){
+
+    closeAuth();
+
+    setTimeout(function(){
+
+        openAuth(type);
+
+    },100);
+
+}
+
+
+/* ================= REGISTER ================= */
+
+async function registerUser(event){
+
+    event.preventDefault();
+
+    const message =
+        document.getElementById("registerMessage");
+
+    message.textContent = "";
+
+    if(!supabaseClient){
+
+        message.textContent =
+        "Supabase URL और Anon Key पहले add करें.";
+
+        return;
+    }
+
+    const name =
+        document.getElementById("registerName")
+        .value.trim();
+
+    const email =
+        document.getElementById("registerEmail")
+        .value.trim();
+
+    const password =
+        document.getElementById("registerPassword")
+        .value;
+
+    const confirmPassword =
+        document.getElementById("registerConfirm")
+        .value;
+
+
+    if(password !== confirmPassword){
+
+        message.textContent =
+        "Passwords match नहीं कर रहे हैं.";
+
+        return;
+    }
+
+
+    message.textContent =
+        "Account बनाया जा रहा है...";
+
+
+    try{
+
+        const {data,error} =
+            await supabaseClient.auth.signUp({
+
+                email:email,
+
+                password:password,
+
+                options:{
+                    data:{
+                        full_name:name
+                    }
+                }
+
+            });
+
+
+        if(error){
+
+            message.textContent =
+                error.message;
+
+            return;
+        }
+
+
+        if(data.user){
+
+            message.textContent =
+                "Account successfully created!";
+
+            setTimeout(function(){
+
+                closeAuth();
+
+            },1500);
+
+        }
+
+    }catch(error){
+
+        message.textContent =
+            "Something went wrong.";
+
+    }
+
+}
+
+
+/* ================= LOGIN ================= */
+
+async function loginUser(event){
+
+    event.preventDefault();
+
+    const message =
+        document.getElementById("loginMessage");
+
+    message.textContent = "";
+
+
+    if(!supabaseClient){
+
+        message.textContent =
+        "Supabase URL और Anon Key पहले add करें.";
+
+        return;
+    }
+
+
+    const email =
+        document.getElementById("loginEmail")
+        .value.trim();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value;
+
+
+    message.textContent =
+        "Login हो रहा है...";
+
+
+    try{
+
+        const {data,error} =
+            await supabaseClient.auth
+            .signInWithPassword({
+
+                email:email,
+                password:password
+
+            });
+
+
+        if(error){
+
+            message.textContent =
+                error.message;
+
+            return;
+        }
+
+
+        if(data.user){
+
+            message.textContent =
+                "Login successful!";
+
+            setTimeout(function(){
+
+                closeAuth();
+
+            },800);
+
+        }
+
+    }catch(error){
+
+        message.textContent =
+            "Something went wrong.";
+
+    }
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+async function logoutUser(){
+
+    if(!supabaseClient){
+
+        return;
+    }
+
+    await supabaseClient.auth.signOut();
+
+    updateAuthUI(null);
+
+}
+
+
+/* ================= UPDATE UI ================= */
+
+function updateAuthUI(user){
+
+    const guestButtons =
+        document.getElementById("guestButtons");
+
+    const loggedUser =
+        document.getElementById("loggedUser");
+
+    const userName =
+        document.getElementById("userName");
+
+
+    if(user){
+
+        guestButtons.style.display = "none";
+
+        loggedUser.style.display = "flex";
+
+
+        const name =
+            user.user_metadata &&
+            user.user_metadata.full_name;
+
+
+        if(name){
+
+            userName.textContent = name;
+
+        }else{
+
+            userName.textContent =
+                user.email.split("@")[0];
+
+        }
+
+    }else{
+
+        guestButtons.style.display = "flex";
+
+        loggedUser.style.display = "none";
+
+        userName.textContent = "";
+
+    }
+
+}
+
+
+/* ================= AUTH STATE ================= */
+
+if(supabaseClient){
+
+    supabaseClient.auth.onAuthStateChange(
+        function(event,session){
+
+            if(session && session.user){
+
+                updateAuthUI(session.user);
+
+            }else{
+
+                updateAuthUI(null);
+
+            }
+
+        }
+    );
+
+
+    supabaseClient.auth.getSession()
+    .then(function(result){
+
+        const session =
+            result.data.session;
+
+        if(session && session.user){
+
+            updateAuthUI(session.user);
+
+        }else{
+
+            updateAuthUI(null);
 
         }
 
     });
 
-},{
-    threshold:0.12
-});
+}
 
 
-document.querySelectorAll(".reveal").forEach(el => {
+/* ================= CLOSE MODAL OUTSIDE ================= */
 
-    observer.observe(el);
+document.addEventListener(
+    "click",
+    function(event){
 
-});
+        if(
+            event.target.classList.contains(
+                "auth-modal"
+            )
+        ){
 
+            closeAuth();
 
-/* ACTIVE MENU */
-
-const sections = document.querySelectorAll("section[id]");
-const links = document.querySelectorAll(".menu a");
-
-window.addEventListener("scroll",()=>{
-
-    let current = "";
-
-    sections.forEach(section=>{
-
-        const top = section.offsetTop - 120;
-
-        if(window.scrollY >= top){
-            current = section.getAttribute("id");
         }
 
-    });
+    }
+);
 
-    links.forEach(link=>{
 
-        link.classList.remove("active");
+/* ================= ESC CLOSE ================= */
 
-        if(link.getAttribute("href") === "#"+current){
-            link.classList.add("active");
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeAuth();
+
         }
 
-    });
+    }
+);
+
+
+/* ================= SCROLL ANIMATION ================= */
+
+const observer =
+    new IntersectionObserver(
+        function(entries){
+
+            entries.forEach(function(entry){
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        },
+        {
+            threshold:0.12
+        }
+    );
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(function(element){
+
+    observer.observe(element);
 
 });
 
