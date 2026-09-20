@@ -1688,13 +1688,6 @@ async function registerUser(event){
 
     message.textContent = "";
 
-if(!supabaseClient){
-
-        message.textContent =
-        "Supabase URL और Anon Key पहले add करें.";
-
-        return;
-    }
 
     const name =
         document.getElementById("registerName")
