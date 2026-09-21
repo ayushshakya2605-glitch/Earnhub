@@ -1,469 +1,1259 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EarnHub - Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        :root {
-            --primary: #4F46E5;
-            --primary-hover: #4338CA;
-            --bg-dark: #0F172A;
-            --card-bg: #1E293B;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --accent-green: #10B981;
-            --accent-yellow: #F59E0B;
-            --border: #334155;
-        }
+<title>EarnHub - Dashboard</title>
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        /* Navbar */
-        header {
-            background-color: #161F30;
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+:root{
+    --primary:#00ff88;
+    --primary-dark:#00cc6a;
+    --bg:#07111f;
+    --card:#0d1a2b;
+    --border:#24384f;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --yellow:#fbbf24;
+    --red:#ef4444;
+}
 
-        .logo span {
-            color: var(--primary);
-        }
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
 
-        .user-nav {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
+/* ================= HEADER ================= */
 
-        .profile-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 0.4rem 0.8rem;
-            border-radius: 50px;
-            cursor: pointer;
-            color: var(--text-main);
-        }
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(7,17,31,.96);
+    border-bottom:1px solid rgba(0,255,136,.15);
+    backdrop-filter:blur(12px);
+}
 
-        .profile-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: var(--primary);
-        }
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+.logo{
+    color:var(--primary);
+    font-size:26px;
+    font-weight:800;
+    text-decoration:none;
+}
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
+.logo span{
+    color:#fff;
+}
 
-        .stat-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+.user-nav{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-        .stat-title {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+.profile-btn{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:7px 12px;
+    border-radius:30px;
+    color:#fff;
+}
 
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+.profile-img{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#00ff88;
+}
 
-        .stat-sub {
-            font-size: 0.8rem;
-            color: var(--accent-green);
-        }
+.logout-btn{
+    background:var(--red);
+    border:none;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:600;
+}
 
-        /* Action Buttons */
-        .quick-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+/* ================= CONTAINER ================= */
 
-        .btn {
-            background-color: var(--primary);
-            color: #FFFFFF;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
+.container{
+    max-width:1200px;
+    width:100%;
+    margin:0 auto;
+    padding:35px 20px;
+}
 
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
+/* ================= WELCOME ================= */
 
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--text-main);
-        }
+.welcome{
+    margin-bottom:28px;
+}
 
-        .btn-outline:hover {
-            background-color: var(--primary);
-        }
+.welcome h2{
+    font-size:28px;
+    margin-bottom:5px;
+}
 
-        /* Main Content Layout */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
+.welcome p{
+    color:var(--muted);
+}
 
-        @media (max-width: 900px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
-        }
+/* ================= QUICK ACTIONS ================= */
 
-        .section-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
+.quick-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
 
-        .section-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.btn{
+    background:var(--primary);
+    color:#07111f;
+    padding:11px 18px;
+    border-radius:8px;
+    border:none;
+    font-weight:700;
+    cursor:pointer;
+}
 
-        /* Work & Tasks List */
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-        }
+.btn:hover{
+    background:var(--primary-dark);
+}
 
-        .task-item:last-child {
-            border-bottom: none;
-        }
+.btn-outline{
+    background:transparent;
+    color:#fff;
+    border:1px solid var(--border);
+}
 
-        .badge {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
+.btn-outline:hover{
+    background:#102235;
+}
 
-        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34D399; }
-        .badge-pending { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+/* ================= STATS ================= */
 
-        /* Performers & Proofs */
-        .performer-list, .proof-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
 
-        .performer-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+.stat-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:22px;
+}
 
-        /* Profile Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+.stat-title{
+    display:block;
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:8px;
+}
 
-        .modal-content {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid var(--border);
-        }
+.stat-value{
+    display:block;
+    font-size:26px;
+    font-weight:800;
+    margin-bottom:5px;
+}
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
+.stat-sub{
+    color:#34d399;
+    font-size:13px;
+}
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-        }
+/* ================= DASHBOARD ================= */
 
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: #0F172A;
-            color: white;
-        }
-    </style>
+.dashboard-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.section-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+.section-title{
+    font-size:19px;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+/* ================= TASKS ================= */
+
+.task-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.task-item:last-child{
+    border-bottom:none;
+}
+
+.task-title{
+    font-weight:600;
+}
+
+.task-date{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:3px;
+}
+
+.badge{
+    padding:5px 9px;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.badge-success{
+    background:rgba(16,185,129,.15);
+    color:#34d399;
+}
+
+.badge-pending{
+    background:rgba(245,158,11,.15);
+    color:#fbbf24;
+}
+
+/* ================= VERIFIED ================= */
+
+.verified-box{
+    background:rgba(16,185,129,.08);
+    border:1px solid #10b981;
+    padding:14px;
+    border-radius:8px;
+    color:#34d399;
+}
+
+/* ================= PERFORMERS ================= */
+
+.performer-list{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.performer-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.rank{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#24384f;
+    font-weight:700;
+}
+
+.rank.first{
+    background:#00ff88;
+    color:#07111f;
+}
+
+.performer-name{
+    font-weight:600;
+}
+
+.performer-earning{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* ================= PROFILE MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.75);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-content{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    width:100%;
+    max-width:450px;
+    padding:25px;
+}
+
+.modal-title{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.form-group input{
+    width:100%;
+    padding:11px;
+    background:var(--bg);
+    color:#fff;
+    border:1px solid var(--border);
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group input:focus{
+    border-color:var(--primary);
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.modal-actions button{
+    flex:1;
+}
+
+/* ================= LOADING ================= */
+
+#loadingScreen{
+    position:fixed;
+    inset:0;
+    background:var(--bg);
+    z-index:10000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+}
+
+.loading-text{
+    color:var(--primary);
+    font-size:18px;
+    font-weight:700;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .navbar{
+        padding:12px 14px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .user-nav{
+        gap:7px;
+    }
+
+    .profile-btn{
+        padding:5px 8px;
+    }
+
+    .profile-img{
+        width:28px;
+        height:28px;
+    }
+
+    .logout-btn{
+        padding:7px 10px;
+        font-size:12px;
+    }
+
+    .container{
+        padding:25px 14px;
+    }
+
+    .welcome h2{
+        font-size:23px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:16px;
+    }
+
+    .stat-value{
+        font-size:21px;
+    }
+
+    .task-item{
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:420px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .task-item{
+        flex-direction:column;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Header -->
-    <header>
-        <a href="#" class="logo"><span>Earn</span>Hub</a>
+<!-- ================= LOADING ================= -->
+
+<div id="loadingScreen">
+    <div class="loading-text">
+        EarnHub
+    </div>
+    <div>
+        Dashboard load हो रहा है...
+    </div>
+</div>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="navbar">
+
+        <a href="index.html" class="logo">
+            Earn<span>Hub</span>
+        </a>
+
         <div class="user-nav">
-            <div class="profile-btn" onclick="openProfileModal()">
-                <img src="https://via.placeholder.com/150" id="nav-profile-img" class="profile-img" alt="Profile">
-                <span id="nav-username">आयुष शाक्य</span>
-            </div>
-        </div>
-    </header>
 
-    <div class="container">
-        
-        <!-- Welcome Section -->
+            <div class="profile-btn">
+
+                <img
+                    src="https://via.placeholder.com/100"
+                    id="nav-profile-img"
+                    class="profile-img"
+                    alt="Profile">
+
+                <span id="nav-username">
+                    User
+                </span>
+
+            </div>
+
+            <button
+                class="logout-btn"
+                onclick="logoutUser()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h2>
+            स्वागत है, <span id="welcome-name">User</span>! 👋
+        </h2>
+
+        <p>
+            यहाँ आपका वर्क एनालिटिक्स और अर्निंग स्टेटस है।
+        </p>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick-actions">
+
+        <button
+            class="btn"
+            onclick="alert('नया टास्क जल्द उपलब्ध होगा।')">
+            Get Task
+        </button>
+
+        <button
+            class="btn btn-outline"
+            onclick="alert('Report system जल्द उपलब्ध होगा।')">
+            Submit Report
+        </button>
+
+        <button
+            class="btn btn-outline"
+            onclick="alert('Payout system जल्द उपलब्ध होगा।')">
+            Withdraw Payout
+        </button>
+
+        <button
+            class="btn btn-outline"
+            onclick="openProfileModal()">
+            Edit Profile
+        </button>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <span class="stat-title">
+                Wallet Balance
+            </span>
+
+            <span
+                class="stat-value"
+                style="color:#34D399;">
+                ₹2,450.00
+            </span>
+
+            <span class="stat-sub">
+                Available Balance
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-title">
+                Total Earning
+            </span>
+
+            <span class="stat-value">
+                ₹12,800.00
+            </span>
+
+            <span class="stat-sub">
+                +₹450 आज
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-title">
+                Tasks Completed
+            </span>
+
+            <span class="stat-value">
+                84
+            </span>
+
+            <span class="stat-sub">
+                Success Rate 98%
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-title">
+                Pending Payouts
+            </span>
+
+            <span
+                class="stat-value"
+                style="color:#FBBF24;">
+                ₹850.00
+            </span>
+
+            <span class="stat-sub">
+                Processing
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DASHBOARD CONTENT ================= -->
+
+    <div class="dashboard-layout">
+
+        <!-- LEFT -->
+
         <div>
-            <h2>स्वागत है, <span id="welcome-name">आयुष</span>! 👋</h2>
-            <p style="color: var(--text-muted);">यहाँ आपका वर्क एनालिटिक्स और अर्निंग स्टेटस है।</p>
-        </div>
 
-        <!-- Quick Action Buttons -->
-        <div class="quick-actions">
-            <button class="btn" onclick="alert('नया टास्क लोड हो रहा है...')"> Get Task</button>
-            <button class="btn btn-outline" onclick="alert('रिपोर्ट फॉर्म ओपन हो रहा है...')"> Submit Report</button>
-            <button class="btn btn-outline" onclick="alert('पेआउट रिक्वेस्ट भेज दी गई है!')"> Withdraw Payout</button>
-            <button class="btn btn-outline" onclick="openProfileModal()"> Edit Profile</button>
-        </div>
+            <!-- WORK -->
 
-        <!-- Wallet & Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-title">Wallet Balance (वॉलेट)</span>
-                <span class="stat-value" style="color: #34D399;">₹2,450.00</span>
-                <span class="stat-sub">तुरंत ट्रांसफर के लिए उपलब्ध</span>
-            </div>
+            <div class="section-card">
 
-            <div class="stat-card">
-                <span class="stat-title">Total Earning (कुल कमाई)</span>
-                <span class="stat-value">₹12,800.00</span>
-                <span class="stat-sub">+₹450 आज</span>
-            </div>
-
-            <div class="stat-card">
-                <span class="stat-title">Tasks Completed (पूरे टास्क)</span>
-                <span class="stat-value">84</span>
-                <span class="stat-sub">98% Success Rate</span>
-            </div>
-
-            <div class="stat-card">
-                <span class="stat-title">Pending Payouts</span>
-                <span class="stat-value" style="color: #FBBF24;">₹850.00</span>
-                <span class="stat-sub">प्रोसेसिंग में है</span>
-            </div>
-        </div>
-
-        <!-- Dashboard Layout -->
-        <div class="dashboard-layout">
-            
-            <!-- Left Main Column -->
-            <div>
-                <!-- Recent Work & Reports -->
-                <div class="section-card">
-                    <div class="section-title">
-                        Work Analytics & Reports
-                    </div>
-                    <div class="task-item">
-                        <div>
-                            <strong>Lead Generation Task #104</strong>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">21 Sep 2026, 10:30 AM</div>
-                        </div>
-                        <div>
-                            <span class="badge badge-success">Approved (+₹50)</span>
-                        </div>
-                    </div>
-                    <div class="task-item">
-                        <div>
-                            <strong>Data Entry Project #88</strong>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">20 Sep 2026, 04:15 PM</div>
-                        </div>
-                        <div>
-                            <span class="badge badge-success">Approved (+₹120)</span>
-                        </div>
-                    </div>
-                    <div class="task-item">
-                        <div>
-                            <strong>Digital Promotion Task #12</strong>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">19 Sep 2026, 08:00 PM</div>
-                        </div>
-                        <div>
-                            <span class="badge badge-pending">Under Review</span>
-                        </div>
-                    </div>
+                <div class="section-title">
+                    Work Analytics & Reports
                 </div>
 
-                <!-- Activation Proofs -->
-                <div class="section-card">
-                    <div class="section-title">Activation Proofs & Updates</div>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-                        आपका अकाउंट पूरी तरह Active है और Payouts चालू हैं।
-                    </p>
-                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent-green); padding: 1rem; border-radius: 8px; color: #34D399;">
-                        ✓ Verified User Account
+
+                <div class="task-item">
+
+                    <div>
+
+                        <div class="task-title">
+                            Lead Generation Task #104
+                        </div>
+
+                        <div class="task-date">
+                            21 Sep 2026, 10:30 AM
+                        </div>
+
                     </div>
+
+                    <span class="badge badge-success">
+                        Approved (+₹50)
+                    </span>
+
                 </div>
+
+
+                <div class="task-item">
+
+                    <div>
+
+                        <div class="task-title">
+                            Data Entry Project #88
+                        </div>
+
+                        <div class="task-date">
+                            20 Sep 2026, 04:15 PM
+                        </div>
+
+                    </div>
+
+                    <span class="badge badge-success">
+                        Approved (+₹120)
+                    </span>
+
+                </div>
+
+
+                <div class="task-item">
+
+                    <div>
+
+                        <div class="task-title">
+                            Digital Promotion Task #12
+                        </div>
+
+                        <div class="task-date">
+                            19 Sep 2026, 08:00 PM
+                        </div>
+
+                    </div>
+
+                    <span class="badge badge-pending">
+                        Under Review
+                    </span>
+
+                </div>
+
             </div>
 
-            <!-- Right Sidebar Column -->
-            <div>
-                <!-- Top Performers -->
-                <div class="section-card">
-                    <div class="section-title">Top Performers 🔥</div>
-                    <div class="performer-list">
-                        <div class="performer-item">
-                            <div style="background: var(--primary); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">1</div>
-                            <div>
-                                <div><strong>रोहित कुमार</strong></div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Earning: ₹18,400</div>
-                            </div>
-                        </div>
-                        <div class="performer-item">
-                            <div style="background: var(--border); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">2</div>
-                            <div>
-                                <div><strong>अमित शर्मा</strong></div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Earning: ₹15,200</div>
-                            </div>
-                        </div>
-                        <div class="performer-item">
-                            <div style="background: var(--border); width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">3</div>
-                            <div>
-                                <div><strong>आयुष शाक्य</strong></div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Earning: ₹12,800</div>
-                            </div>
-                        </div>
-                    </div>
+
+            <!-- ACCOUNT STATUS -->
+
+            <div class="section-card">
+
+                <div class="section-title">
+                    Activation Proofs & Updates
                 </div>
+
+                <p
+                    style="color:var(--muted);margin-bottom:15px;">
+                    आपका अकाउंट active है।
+                </p>
+
+                <div class="verified-box">
+                    ✓ Verified User Account
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div>
+
+            <div class="section-card">
+
+                <div class="section-title">
+                    Top Performers 🔥
+                </div>
+
+                <div class="performer-list">
+
+                    <div class="performer-item">
+
+                        <div class="rank first">
+                            1
+                        </div>
+
+                        <div>
+
+                            <div class="performer-name">
+                                रोहित कुमार
+                            </div>
+
+                            <div class="performer-earning">
+                                Earning: ₹18,400
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="performer-item">
+
+                        <div class="rank">
+                            2
+                        </div>
+
+                        <div>
+
+                            <div class="performer-name">
+                                अमित शर्मा
+                            </div>
+
+                            <div class="performer-earning">
+                                Earning: ₹15,200
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="performer-item">
+
+                        <div class="rank">
+                            3
+                        </div>
+
+                        <div>
+
+                            <div class="performer-name">
+                                आयुष शाक्य
+                            </div>
+
+                            <div class="performer-earning">
+                                Earning: ₹12,800
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-    <!-- Edit Profile Modal -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <h3 style="margin-bottom: 1rem;">My Profile Edit</h3>
-            
-            <div class="form-group">
-                <label>Profile Picture URL</label>
-                <input type="text" id="input-img" placeholder="https://example.com/photo.jpg">
-            </div>
-            
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="input-name" value="आयुष शाक्य">
-            </div>
+</div>
 
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="input-email" value="ayush@example.com">
-            </div>
 
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn" style="flex:1;" onclick="saveProfile()">Save Changes</button>
-                <button class="btn btn-outline" style="flex:1;" onclick="closeProfileModal()">Cancel</button>
-            </div>
+<!-- ================= PROFILE MODAL ================= -->
+
+<div
+    class="modal"
+    id="profileModal"
+    onclick="closeModalOutside(event)">
+
+    <div
+        class="modal-content"
+        onclick="event.stopPropagation()">
+
+        <div class="modal-title">
+            My Profile
         </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="input-name"
+                placeholder="Your name">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="input-email"
+                readonly>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Profile Picture URL
+            </label>
+
+            <input
+                type="url"
+                id="input-img"
+                placeholder="https://example.com/photo.jpg">
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="btn"
+                onclick="saveProfile()">
+                Save Changes
+            </button>
+
+            <button
+                class="btn btn-outline"
+                onclick="closeProfileModal()">
+                Cancel
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- JavaScript logic -->
-    <script>
-        function openProfileModal() {
-            document.getElementById('profileModal').style.display = 'flex';
+</div>
+
+
+<!-- ================= SUPABASE ================= -->
+
+<script>
+
+/*
+====================================================
+SUPABASE CONFIG
+====================================================
+
+Project URL:
+https://iamvjpmgelyfiotyklag.supabase.co
+
+अपनी Publishable / Anon Key नीचे डालें।
+
+SERVICE_ROLE KEY बिल्कुल मत डालना।
+====================================================
+*/
+
+const SUPABASE_URL =
+    "https://iamvjpmgelyfiotyklag.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "YOUR_SUPABASE_ANON_KEY";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+let currentUser = null;
+
+
+/* ================= CHECK LOGIN ================= */
+
+async function checkUser(){
+
+    try{
+
+        const { data, error } =
+            await supabaseClient.auth.getSession();
+
+
+        if(error){
+
+            console.error(error);
+
+            window.location.href =
+                "index.html";
+
+            return;
         }
 
-        function closeProfileModal() {
-            document.getElementById('profileModal').style.display = 'none';
+
+        const session =
+            data.session;
+
+
+        /*
+        Login नहीं है तो dashboard access नहीं मिलेगा।
+        */
+
+        if(!session || !session.user){
+
+            window.location.href =
+                "index.html";
+
+            return;
         }
 
-        function saveProfile() {
-            const name = document.getElementById('input-name').value;
-            const imgUrl = document.getElementById('input-img').value;
 
-            if (name) {
-                document.getElementById('nav-username').innerText = name;
-                document.getElementById('welcome-name').innerText = name;
-            }
+        currentUser =
+            session.user;
 
-            if (imgUrl) {
-                document.getElementById('nav-profile-img').src = imgUrl;
-            }
 
-            closeProfileModal();
-            alert('प्रोफाइल अपडेट हो गई है!');
+        showUser(currentUser);
+
+
+        document.getElementById(
+            "loadingScreen"
+        ).style.display = "none";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+/* ================= SHOW USER ================= */
+
+function showUser(user){
+
+    const fullName =
+        user.user_metadata?.full_name;
+
+
+    let displayName;
+
+
+    if(fullName && fullName.trim()){
+
+        displayName =
+            fullName.trim();
+
+    }else{
+
+        displayName =
+            user.email
+                ? user.email.split("@")[0]
+                : "User";
+
+    }
+
+
+    document.getElementById(
+        "nav-username"
+    ).textContent =
+        displayName;
+
+
+    document.getElementById(
+        "welcome-name"
+    ).textContent =
+        displayName;
+
+
+    document.getElementById(
+        "input-name"
+    ).value =
+        fullName || "";
+
+
+    document.getElementById(
+        "input-email"
+    ).value =
+        user.email || "";
+
+
+    const avatar =
+        user.user_metadata?.avatar_url;
+
+
+    if(avatar){
+
+        document.getElementById(
+            "nav-profile-img"
+        ).src = avatar;
+
+        document.getElementById(
+            "input-img"
+        ).value = avatar;
+
+    }
+
+}
+
+
+/* ================= PROFILE MODAL ================= */
+
+function openProfileModal(){
+
+    document.getElementById(
+        "profileModal"
+    ).style.display = "flex";
+
+}
+
+
+function closeProfileModal(){
+
+    document.getElementById(
+        "profileModal"
+    ).style.display = "none";
+
+}
+
+
+function closeModalOutside(event){
+
+    if(
+        event.target.id === "profileModal"
+    ){
+
+        closeProfileModal();
+
+    }
+
+}
+
+
+/* ================= SAVE PROFILE ================= */
+
+async function saveProfile(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const name =
+        document.getElementById(
+            "input-name"
+        ).value.trim();
+
+
+    const imgUrl =
+        document.getElementById(
+            "input-img"
+        ).value.trim();
+
+
+    if(!name){
+
+        alert("कृपया अपना नाम डालें।");
+
+        return;
+    }
+
+
+    try{
+
+        const { data, error } =
+            await supabaseClient.auth.updateUser({
+
+                data: {
+
+                    full_name: name,
+
+                    avatar_url:
+                        imgUrl || null
+
+                }
+
+            });
+
+
+        if(error){
+
+            alert(error.message);
+
+            return;
         }
-    </script>
+
+
+        currentUser =
+            data.user;
+
+
+        showUser(currentUser);
+
+
+        closeProfileModal();
+
+
+        alert(
+            "Profile successfully updated!"
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Profile update नहीं हो पाया।"
+        );
+
+    }
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+async function logoutUser(){
+
+    try{
+
+        const { error } =
+            await supabaseClient.auth.signOut();
+
+
+        if(error){
+
+            alert(error.message);
+
+            return;
+        }
+
+
+        window.location.href =
+            "index.html";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+/* ================= AUTH STATE ================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session){
+
+        if(!session){
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    }
+);
+
+
+/* ================= START ================= */
+
+checkUser();
+
+</script>
+
 </body>
 </html>
