@@ -1,1217 +1,574 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EarnHub</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#07111f;
-    color:#fff;
-    line-height:1.6;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-button{
-    font-family:inherit;
-}
-
-/* ================= HEADER ================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:rgba(7,17,31,.95);
-    border-bottom:1px solid rgba(0,255,136,.15);
-    backdrop-filter:blur(12px);
-}
-
-.navbar{
-    max-width:1200px;
-    margin:auto;
-    padding:16px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    font-size:27px;
-    font-weight:800;
-    color:#00ff88;
-}
-
-.logo span{
-    color:#fff;
-}
-
-.nav-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.nav-btn{
-    border:1px solid #00ff88;
-    background:transparent;
-    color:#00ff88;
-    padding:9px 17px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.2s;
-}
-
-.nav-btn:hover{
-    background:#00ff88;
-    color:#07111f;
-}
-
-.user-area{
-    display:none;
-    align-items:center;
-    gap:12px;
-}
-
-.user-name{
-    color:#00ff88;
-    font-weight:600;
-}
-
-.logout-btn{
-    border:none;
-    background:#ef4444;
-    color:#fff;
-    padding:8px 14px;
-    border-radius:7px;
-    cursor:pointer;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    max-width:1200px;
-    min-height:560px;
-    margin:auto;
-    padding:100px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-.hero-content{
-    max-width:850px;
-}
-
-.badge{
-    display:inline-block;
-    border:1px solid rgba(0,255,136,.35);
-    background:rgba(0,255,136,.07);
-    color:#00ff88;
-    padding:7px 15px;
-    border-radius:30px;
-    margin-bottom:20px;
-    font-size:14px;
-}
-
-.hero h1{
-    font-size:clamp(40px,7vw,72px);
-    line-height:1.05;
-    margin-bottom:22px;
-}
-
-.green{
-    color:#00ff88;
-}
-
-.hero p{
-    color:#a7b2c2;
-    max-width:700px;
-    margin:0 auto 30px;
-    font-size:18px;
-}
-
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.primary-btn{
-    background:#00ff88;
-    color:#07111f;
-    border:none;
-    padding:13px 25px;
-    border-radius:9px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.primary-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(0,255,136,.18);
-}
-
-.secondary-btn{
-    background:transparent;
-    color:#fff;
-    border:1px solid #334155;
-    padding:13px 25px;
-    border-radius:9px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-/* ================= SECTIONS ================= */
-
-section{
-    max-width:1200px;
-    margin:auto;
-    padding:70px 20px;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
-}
-
-.section-title h2{
-    font-size:34px;
-    margin-bottom:10px;
-}
-
-.section-title p{
-    color:#94a3b8;
-}
-
-/* ================= CARDS ================= */
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.card{
-    background:#0d1a2b;
-    border:1px solid #1e334b;
-    border-radius:15px;
-    padding:28px;
-    transition:.25s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(0,255,136,.45);
-}
-
-.card-icon{
-    font-size:34px;
-    margin-bottom:15px;
-}
-
-.card h3{
-    margin-bottom:10px;
-}
-
-.card p{
-    color:#94a3b8;
-}
-
-/* ================= CTA ================= */
-
-.cta{
-    text-align:center;
-    background:linear-gradient(
-        135deg,
-        rgba(0,255,136,.08),
-        rgba(0,255,136,.02)
-    );
-    border:1px solid rgba(0,255,136,.15);
-    border-radius:20px;
-    padding:55px 20px;
-}
-
-.cta h2{
-    font-size:34px;
-    margin-bottom:12px;
-}
-
-.cta p{
-    color:#94a3b8;
-    margin-bottom:25px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    border-top:1px solid #17283b;
-    padding:25px 20px;
-    text-align:center;
-    color:#64748b;
-}
-
-/* ================= AUTH MODAL ================= */
-
-.auth-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:5000;
-    background:rgba(0,0,0,.75);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.auth-modal{
-    width:100%;
-    max-width:430px;
-    background:#0d1a2b;
-    border:1px solid #263d56;
-    border-radius:16px;
-    padding:28px;
-    position:relative;
-    box-shadow:0 20px 70px rgba(0,0,0,.5);
-}
-
-.close-btn{
-    position:absolute;
-    top:12px;
-    right:15px;
-    background:none;
-    border:none;
-    color:#94a3b8;
-    font-size:27px;
-    cursor:pointer;
-}
-
-.auth-title{
-    text-align:center;
-    margin-bottom:22px;
-}
-
-.auth-title h2{
-    margin-bottom:5px;
-}
-
-.auth-title p{
-    color:#94a3b8;
-    font-size:14px;
-}
-
-.auth-form{
-    display:flex;
-    flex-direction:column;
-    gap:13px;
-}
-
-.auth-form label{
-    color:#cbd5e1;
-    font-size:14px;
-}
-
-.auth-form input{
-    width:100%;
-    padding:12px 13px;
-    background:#07111f;
-    border:1px solid #334155;
-    border-radius:8px;
-    color:#fff;
-    outline:none;
-}
-
-.auth-form input:focus{
-    border-color:#00ff88;
-}
-
-.auth-submit{
-    margin-top:8px;
-    background:#00ff88;
-    color:#07111f;
-    border:none;
-    padding:13px;
-    border-radius:8px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.auth-message{
-    min-height:22px;
-    margin-top:13px;
-    text-align:center;
-    font-size:14px;
-    color:#00ff88;
-}
-
-.switch-auth{
-    text-align:center;
-    margin-top:18px;
-    color:#94a3b8;
-    font-size:14px;
-}
-
-.switch-auth button{
-    background:none;
-    border:none;
-    color:#00ff88;
-    cursor:pointer;
-    font-weight:600;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:800px){
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .hero{
-        min-height:500px;
-        padding:70px 20px;
-    }
-
-    .navbar{
-        padding:13px 15px;
-    }
-
-    .logo{
-        font-size:23px;
-    }
-
-    .nav-btn{
-        padding:7px 11px;
-        font-size:13px;
-    }
-}
-
-@media(max-width:480px){
-
-    .hero h1{
-        font-size:42px;
-    }
-
-    .hero p{
-        font-size:16px;
-    }
-
-    .auth-modal{
-        padding:22px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandHub - कंपनी पोर्टल</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.7; background: #f5f5f5; color: #222; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: #1a237e;
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo { font-size: 1.4em; font-weight: bold; letter-spacing: 0.5px; }
+        .navbar .logo span { color: #ffd54f; }
+        .navbar ul { list-style: none; display: flex; gap: 5px; flex-wrap: wrap; }
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            font-size: 0.95em;
+        }
+        .navbar ul li a:hover, .navbar ul li a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 25px 20px 60px;
+        }
+
+        /* ===== VIEWS ===== */
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== HEADINGS ===== */
+        h1 { color: #1a237e; border-bottom: 3px solid #1a237e; padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { color: #283593; margin-top: 30px; margin-bottom: 10px; }
+        h3 { color: #333; margin-top: 20px; margin-bottom: 8px; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: #fff;
+            padding: 45px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(26,35,126,0.25);
+        }
+        .hero h1 { color: #fff; border: none; font-size: 2.2em; margin-bottom: 12px; padding: 0; }
+        .hero p { font-size: 1.05em; opacity: 0.92; max-width: 600px; margin: 0 auto 20px; }
+        .hero .cta-btn {
+            display: inline-block;
+            background: #ffd54f;
+            color: #1a237e;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .hero .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+
+        /* ===== ALERT BOXES ===== */
+        .alert-box { background: #e8eaf6; border-left: 6px solid #1a237e; padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
+        .alert-box strong { color: #1a237e; }
+        .positive { background: #e8f5e9; border-left: 6px solid #2e7d32; padding: 12px 18px; margin: 15px 0; border-radius: 4px; }
+        .negative { background: #fff3e0; border-left: 6px solid #e65100; padding: 12px 18px; margin: 15px 0; border-radius: 4px; }
+
+        /* ===== SERVICES GRID ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+        .service-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            border-top: 4px solid #3949ab;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .service-card .icon { font-size: 2em; margin-bottom: 10px; }
+        .service-card h3 { color: #1a237e; margin: 0 0 8px; }
+        .service-card p { font-size: 0.92em; color: #555; }
+
+        /* ===== TABLE ===== */
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; background: #fff; border-radius: 6px; overflow: hidden; }
+        th, td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; }
+        th { background: #1a237e; color: #fff; }
+        tr:nth-child(even) { background: #fafafa; }
+
+        /* ===== QUOTES ===== */
+        .review-quote { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 15px; margin: 10px 0; font-style: italic; }
+        .review-quote .meta { font-style: normal; font-size: 0.85em; color: #777; margin-top: 8px; }
+
+        /* ===== FORMS ===== */
+        .form-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px 35px;
+            max-width: 450px;
+            margin: 30px auto;
+            border-top: 5px solid #1a237e;
+        }
+        .form-card h2 { color: #1a237e; text-align: center; margin-top: 0; margin-bottom: 25px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.95em; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #1a237e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            font-family: inherit;
+        }
+        .btn:hover { background: #0d1550; }
+        .btn:active { transform: scale(0.98); }
+        .btn-outline {
+            background: transparent;
+            color: #1a237e;
+            border: 2px solid #1a237e;
+        }
+        .btn-outline:hover { background: #1a237e; color: #fff; }
+        .form-footer { text-align: center; margin-top: 18px; font-size: 0.92em; color: #555; }
+        .form-footer a { color: #1a237e; text-decoration: none; font-weight: 600; }
+        .form-footer a:hover { text-decoration: underline; }
+        .error-msg { color: #d32f2f; font-size: 0.88em; margin-top: 10px; text-align: center; min-height: 20px; }
+        .success-msg { color: #2e7d32; font-size: 0.88em; margin-top: 10px; text-align: center; min-height: 20px; }
+
+        /* ===== DASHBOARD ===== */
+        .dash-header {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: #fff;
+            padding: 25px 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(26,35,126,0.25);
+        }
+        .dash-header h2 { color: #fff; margin: 0 0 5px; }
+        .dash-header p { opacity: 0.9; font-size: 0.95em; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 5px solid #1a237e;
+        }
+        .stat-card h4 { color: #777; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-card .value { font-size: 1.8em; font-weight: bold; color: #1a237e; }
+        .stat-card .value.green { color: #2e7d32; }
+        .stat-card .value.orange { color: #e65100; }
+
+        .dash-section {
+            background: #fff;
+            padding: 22px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+        .dash-section h3 { margin-top: 0; color: #1a237e; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; }
+
+        .activity-list { list-style: none; }
+        .activity-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .activity-list li:last-child { border-bottom: none; }
+        .badge { padding: 3px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600; }
+        .badge-green { background: #e8f5e9; color: #2e7d32; }
+        .badge-orange { background: #fff3e0; color: #e65100; }
+        .badge-blue { background: #e8eaf6; color: #1a237e; }
+
+        /* ===== FOOTER ===== */
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #ddd; font-size: 0.9em; color: #555; }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 600px) {
+            .navbar { padding: 12px 15px; }
+            .navbar ul li a { padding: 6px 10px; font-size: 0.85em; }
+            .form-card { padding: 22px 20px; }
+            .hero h1 { font-size: 1.6em; }
+            h1 { font-size: 1.4em; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="logo">Brand<span>Hub</span></div>
+    <ul>
+        <li><a href="#" data-view="home" class="nav-link active">होम</a></li>
+        <li><a href="#" data-view="about" class="nav-link">हमारे बारे में</a></li>
+        <li><a href="#" data-view="login" class="nav-link">लॉगिन</a></li>
+        <li><a href="#" data-view="register" class="nav-link">रजिस्टर</a></li>
+        <li><a href="#" data-view="dashboard" class="nav-link">डैशबोर्ड</a></li>
+    </ul>
+</nav>
 
-<header>
-    <div class="navbar">
+<div class="container">
 
-        <a href="#" class="logo">
-            Earn<span>Hub</span>
-        </a>
-
-        <div class="nav-buttons" id="guestButtons">
-            <button class="nav-btn" onclick="openAuth('login')">
-                Login
-            </button>
-
-            <button class="nav-btn" onclick="openAuth('register')">
-                Register
-            </button>
+    <!-- ============ HOME VIEW ============ -->
+    <section id="home" class="view active">
+        <div class="hero">
+            <h1>🚀 BrandHub में आपका स्वागत है</h1>
+            <p>भारत का भरोसेमंद डिजिटल प्लेटफ़ॉर्म — ब्रांडिंग, मार्केटिंग और बिज़नेस ग्रोथ के लिए एक ही जगह।</p>
+            <a href="#" data-view="register" class="cta-btn nav-link-inline">अभी जुड़ें →</a>
         </div>
 
-        <div class="user-area" id="loggedUser">
+        <h2>🏢 हमारे बारे में</h2>
+        <p><strong>BrandHub</strong> एक आधुनिक डिजिटल कंपनी है जो ब्रांड्स को ऑनलाइन बढ़ने में मदद करती है। हम छोटे से लेकर बड़े व्यवसायों तक — सभी के लिए स्मार्ट, भरोसेमंद और किफ़ायती समाधान देते हैं।</p>
 
-            <span class="user-name" id="navUserName">
-                User
-            </span>
-
-            <button class="logout-btn" onclick="logoutUser()">
-                Logout
-            </button>
-
+        <div class="alert-box">
+            <strong>🎯 हमारा मिशन:</strong> हर ब्रांड को डिजिटल दुनिया में पहचान दिलाना — सही रणनीति, सही टूल्स और सही साथी के ज़रिए।
         </div>
 
-    </div>
-</header>
-
-
-<!-- ================= HERO ================= -->
-
-<main>
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <div class="badge">
-            Digital Skills & Online Opportunities
-        </div>
-
-        <h1>
-            Learn Skills.<br>
-            <span class="green">Earn Online.</span>
-        </h1>
-
-        <p>
-            EarnHub is a platform for people who want to
-            learn digital skills and explore online work
-            opportunities.
-        </p>
-
-        <div class="hero-buttons">
-
-            <button
-                class="primary-btn"
-                onclick="openAuth('register')">
-                Get Started
-            </button>
-
-            <button
-                class="secondary-btn"
-                onclick="document.getElementById('features').scrollIntoView()">
-                Explore
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= FEATURES ================= -->
-
-<section id="features">
-
-    <div class="section-title">
-
-        <h2>
-            What You Can Do
-        </h2>
-
-        <p>
-            Build skills and explore digital opportunities.
-        </p>
-
-    </div>
-
-
-    <div class="cards">
-
-        <div class="card">
-
-            <div class="card-icon">💻</div>
-
-            <h3>
-                Digital Skills
-            </h3>
-
-            <p>
-                Learn useful online skills and improve
-                your digital knowledge.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">📋</div>
-
-            <h3>
-                Online Tasks
-            </h3>
-
-            <p>
-                Explore available online tasks and
-                work opportunities.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">💰</div>
-
-            <h3>
-                Track Earnings
-            </h3>
-
-            <p>
-                Keep track of your work and earnings
-                through your dashboard.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= CTA ================= -->
-
-<section>
-
-    <div class="cta">
-
-        <h2>
-            Ready to Get Started?
-        </h2>
-
-        <p>
-            Create your EarnHub account and access
-            your dashboard.
-        </p>
-
-        <button
-            class="primary-btn"
-            onclick="openAuth('register')">
-            Create Account
-        </button>
-
-    </div>
-
-</section>
-
-</main>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    © 2026 EarnHub. All rights reserved.
-
-</footer>
-
-
-<!-- ================= AUTH MODAL ================= -->
-
-<div
-    class="auth-overlay"
-    id="authOverlay"
-    onclick="handleOverlayClick(event)">
-
-    <div class="auth-modal">
-
-        <button
-            class="close-btn"
-            onclick="closeAuth()">
-            ×
-        </button>
-
-
-        <!-- LOGIN -->
-
-        <div id="loginBox">
-
-            <div class="auth-title">
-
-                <h2>
-                    Welcome Back
-                </h2>
-
-                <p>
-                    Login to your EarnHub account
-                </p>
-
+        <h2>💼 हमारी सेवाएँ</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">🎨</div>
+                <h3>ब्रांडिंग</h3>
+                <p>लोगो, विज़ुअल आइडेंटिटी और ब्रांड गाइडलाइन — सब कुछ एक ही जगह।</p>
             </div>
+            <div class="service-card">
+                <div class="icon">📢</div>
+                <h3>डिजिटल मार्केटिंग</h3>
+                <p>SEO, सोशल मीडिया और पेड ऐड्स के ज़रिए असली ग्रोथ।</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">💻</div>
+                <h3>वेब डेवलपमेंट</h3>
+                <p>तेज़, सुंदर और मोबाइल-फ्रेंडली वेबसाइट और ऐप्स।</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">📊</div>
+                <h3>बिज़नेस कंसल्टिंग</h3>
+                <p>आपके बिज़नेस के लिए स्मार्ट स्ट्रैटेजी और प्लानिंग।</p>
+            </div>
+        </div>
 
+        <h2>📈 हमारी उपलब्धियाँ</h2>
+        <table>
+            <tr><th>मेट्रिक</th><th>आँकड़ा</th></tr>
+            <tr><td>खुश ग्राहक</td><td>5,000+</td></tr>
+            <tr><td>सफल प्रोजेक्ट्स</td><td>12,000+</td></tr>
+            <tr><td>टीम के सदस्य</td><td>150+</td></tr>
+            <tr><td>शहरों में उपस्थिति</td><td>25+</td></tr>
+        </table>
 
-            <form
-                class="auth-form"
-                onsubmit="loginUser(event)">
+        <h2>💬 ग्राहक क्या कहते हैं</h2>
+        <div class="review-quote">
+            <p>"BrandHub की टीम ने हमारे स्टार्टअप को नई पहचान दी। प्रोफेशनल और भरोसेमंद सेवा।"</p>
+            <p class="meta">— राहुल शर्मा, फाउंडर, TechNova</p>
+        </div>
+        <div class="review-quote">
+            <p>"समय पर डिलीवरी और बेहतरीन क्वालिटी। इनके साथ काम करना आसान है।"</p>
+            <p class="meta">— प्रिया वर्मा, मार्केटिंग हेड, ShopEasy</p>
+        </div>
+        <div class="review-quote">
+            <p>"हमारी सेल्स 3 गुना बढ़ी — सिर्फ BrandHub की स्ट्रैटेजी से।"</p>
+            <p class="meta">— अमित पटेल, CEO, FreshCart</p>
+        </div>
 
-                <label for="loginEmail">
-                    Email Address
-                </label>
+        <h2>📞 संपर्क करें</h2>
+        <div class="alert-box">
+            <p><strong>ईमेल:</strong> hello@brandhub.in</p>
+            <p><strong>फ़ोन:</strong> +91 98765 43210</p>
+            <p><strong>पता:</strong> मुंबई, महाराष्ट्र, भारत</p>
+        </div>
 
-                <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="Enter your email"
-                    required>
+        <div class="footer">
+            <p>© 2026 BrandHub. सर्वाधिकार सुरक्षित।</p>
+            <p><strong>अस्वीकरण:</strong> यह एक डेमो पोर्टल है।</p>
+        </div>
+    </section>
 
+    <!-- ============ ABOUT VIEW ============ -->
+    <section id="about" class="view">
+        <h1>🏢 BrandHub के बारे में</h1>
+        <p>BrandHub एक भारतीय डिजिटल कंपनी है जो ब्रांड्स को ऑनलाइन दुनिया में सफल बनाने के लिए काम करती है। हमारा फ़ोकस है — सरल, प्रभावी और परिणाम देने वाले समाधान।</p>
 
-                <label for="loginPassword">
-                    Password
-                </label>
+        <h2>🎯 हमारा विज़न</h2>
+        <div class="alert-box">
+            <p>हर छोटे और बड़े बिज़नेस को डिजिटल रूप से मज़बूत बनाना — बिना झंझट, बिना भारी खर्च।</p>
+        </div>
 
-                <input
-                    type="password"
-                    id="loginPassword"
-                    placeholder="Enter your password"
-                    required>
+        <h2>💡 हम क्यों अलग हैं?</h2>
+        <div class="positive">✅ पारदर्शी प्राइसिंग — कोई छिपा शुल्क नहीं</div>
+        <div class="positive">✅ समय पर डिलीवरी — हर प्रोजेक्ट का पक्का समय</div>
+        <div class="positive">✅ एक्सपर्ट टीम — अनुभवी डिज़ाइनर, डेवलपर और मार्केटर</div>
+        <div class="positive">✅ 24/7 सपोर्ट — जब भी ज़रूरत हो, हम हैं</div>
 
+        <h2>👥 हमारी टीम</h2>
+        <table>
+            <tr><th>नाम</th><th>पद</th></tr>
+            <tr><td>रोहित मेहरा</td><td>Founder & CEO</td></tr>
+            <tr><td>स्नेहा कपूर</td><td>Creative Director</td></tr>
+            <tr><td>विकास सिंह</td><td>Head of Marketing</td></tr>
+            <tr><td>अंजलि राव</td><td>Lead Developer</td></tr>
+        </table>
+    </section>
 
-                <button
-                    type="submit"
-                    class="auth-submit">
-                    Login
-                </button>
-
+    <!-- ============ LOGIN VIEW ============ -->
+    <section id="login" class="view">
+        <div class="form-card">
+            <h2>🔐 लॉगिन करें</h2>
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">ईमेल पता</label>
+                    <input type="email" id="loginEmail" placeholder="aapka@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">पासवर्ड</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <button type="submit" class="btn">लॉगिन</button>
+                <div class="error-msg" id="loginMsg"></div>
+                <div class="form-footer">
+                    अकाउंट नहीं है? <a href="#" data-view="register" class="nav-link-inline">रजिस्टर करें</a>
+                </div>
             </form>
-
-
-            <div
-                class="auth-message"
-                id="loginMessage">
-            </div>
-
-
-            <div class="switch-auth">
-
-                Don't have an account?
-
-                <button
-                    type="button"
-                    onclick="switchAuth('register')">
-                    Create Account
-                </button>
-
-            </div>
-
         </div>
+    </section>
 
-
-        <!-- REGISTER -->
-
-        <div id="registerBox" style="display:none;">
-
-            <div class="auth-title">
-
-                <h2>
-                    Create Account
-                </h2>
-
-                <p>
-                    Join EarnHub today
-                </p>
-
-            </div>
-
-
-            <form
-                class="auth-form"
-                onsubmit="registerUser(event)">
-
-                <label for="registerName">
-                    Full Name
-                </label>
-
-                <input
-                    type="text"
-                    id="registerName"
-                    placeholder="Enter your full name"
-                    required>
-
-
-                <label for="registerEmail">
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="registerEmail"
-                    placeholder="Enter your email"
-                    required>
-
-
-                <label for="registerPassword">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="registerPassword"
-                    placeholder="Minimum 6 characters"
-                    minlength="6"
-                    required>
-
-
-                <label for="registerConfirm">
-                    Confirm Password
-                </label>
-
-                <input
-                    type="password"
-                    id="registerConfirm"
-                    placeholder="Confirm your password"
-                    minlength="6"
-                    required>
-
-
-                <button
-                    type="submit"
-                    class="auth-submit">
-                    Create Account
-                </button>
-
+    <!-- ============ REGISTER VIEW ============ -->
+    <section id="register" class="view">
+        <div class="form-card">
+            <h2>📝 नया अकाउंट बनाएँ</h2>
+            <form id="registerForm" onsubmit="return handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">पूरा नाम</label>
+                    <input type="text" id="regName" placeholder="आपका नाम" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">ईमेल पता</label>
+                    <input type="email" id="regEmail" placeholder="aapka@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">पासवर्ड</label>
+                    <input type="password" id="regPassword" placeholder="कम से कम 6 अक्षर" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="regConfirm">पासवर्ड दोबारा</label>
+                    <input type="password" id="regConfirm" placeholder="पासवर्ड दोहराएँ" required minlength="6">
+                </div>
+                <button type="submit" class="btn">रजिस्टर करें</button>
+                <div class="error-msg" id="regMsg"></div>
+                <div class="form-footer">
+                    पहले से अकाउंट है? <a href="#" data-view="login" class="nav-link-inline">लॉगिन करें</a>
+                </div>
             </form>
+        </div>
+    </section>
 
-
-            <div
-                class="auth-message"
-                id="registerMessage">
-            </div>
-
-
-            <div class="switch-auth">
-
-                Already have an account?
-
-                <button
-                    type="button"
-                    onclick="switchAuth('login')">
-                    Login
-                </button>
-
-            </div>
-
+    <!-- ============ DASHBOARD VIEW ============ -->
+    <section id="dashboard" class="view">
+        <div class="dash-header">
+            <h2>👋 नमस्ते, <span id="dashUserName">उपयोगकर्ता</span>!</h2>
+            <p>BrandHub डैशबोर्ड — यहाँ आपके प्रोजेक्ट, आँकड़े और गतिविधि दिखेंगे।</p>
         </div>
 
-    </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>कुल प्रोजेक्ट</h4>
+                <div class="value">0</div>
+            </div>
+            <div class="stat-card">
+                <h4>पूर्ण हुए</h4>
+                <div class="value green">0</div>
+            </div>
+            <div class="stat-card">
+                <h4>चालू</h4>
+                <div class="value orange">0</div>
+            </div>
+            <div class="stat-card">
+                <h4>अकाउंट स्थिति</h4>
+                <div class="value" style="font-size:1.2em;">सक्रिय</div>
+            </div>
+        </div>
+
+        <div class="dash-section">
+            <h3>📋 हाल की गतिविधि</h3>
+            <ul class="activity-list">
+                <li>
+                    <span>BrandHub में अकाउंट बनाया गया</span>
+                    <span class="badge badge-green">सफल</span>
+                </li>
+                <li>
+                    <span>ईमेल सत्यापन लंबित</span>
+                    <span class="badge badge-orange">लंबित</span>
+                </li>
+                <li>
+                    <span>कोई नया प्रोजेक्ट नहीं</span>
+                    <span class="badge badge-blue">खाली</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="dash-section">
+            <h3>⚙️ अकाउंट सेटिंग्स</h3>
+            <p style="margin-bottom:12px; color:#555;">प्रोफ़ाइल अपडेट करें, पासवर्ड बदलें या अकाउंट प्रबंधित करें।</p>
+            <button class="btn btn-outline" onclick="logout()">लॉगआउट करें</button>
+        </div>
+
+        <div class="dash-section">
+            <h3>🛡️ सुरक्षा सुझाव</h3>
+            <div class="alert-box" style="margin:0;">
+                <ul style="padding-left:20px;">
+                    <li>अपना पासवर्ड किसी के साथ साझा न करें।</li>
+                    <li>OTP कभी किसी को न बताएँ।</li>
+                    <li>संदिग्ध लिंक पर क्लिक न करें।</li>
+                    <li>हमेशा दो-चरणीय सत्यापन (2FA) का उपयोग करें।</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
 </div>
 
-
-<!-- ================= SUPABASE ================= -->
-
 <script>
+    // ===== View Switching =====
+    function showView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(viewId);
+        if (target) target.classList.add('active');
 
-/*
-====================================================
-SUPABASE CONFIG
-====================================================
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        const navLink = document.querySelector(`.nav-link[data-view="${viewId}"]`);
+        if (navLink) navLink.classList.add('active');
 
-Project URL:
-https://iamvjpmgelyfiotyklag.supabase.co
-
-नीचे अपनी वही Publishable / Anon Key डालना है।
-
-SERVICE_ROLE KEY बिल्कुल मत डालना।
-====================================================
-*/
-
-const SUPABASE_URL =
-    "https://iamvjpmgelyfiotyklag.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_HcXyO3aIUEu4VLHtHq9qdw_MasfMwFi";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-
-
-/* ================= AUTH MODAL ================= */
-
-function openAuth(type){
-
-    document.getElementById("authOverlay").style.display =
-        "flex";
-
-    switchAuth(type);
-
-}
-
-
-function closeAuth(){
-
-    document.getElementById("authOverlay").style.display =
-        "none";
-
-}
-
-
-function handleOverlayClick(event){
-
-    if(event.target.id === "authOverlay"){
-        closeAuth();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-}
-
-
-function switchAuth(type){
-
-    const loginBox =
-        document.getElementById("loginBox");
-
-    const registerBox =
-        document.getElementById("registerBox");
-
-    document.getElementById("loginMessage").textContent =
-        "";
-
-    document.getElementById("registerMessage").textContent =
-        "";
-
-    if(type === "register"){
-
-        loginBox.style.display = "none";
-        registerBox.style.display = "block";
-
-    }else{
-
-        registerBox.style.display = "none";
-        loginBox.style.display = "block";
-
-    }
-
-}
-
-
-/* ================= REGISTER ================= */
-
-async function registerUser(event){
-
-    event.preventDefault();
-
-    const message =
-        document.getElementById("registerMessage");
-
-    const name =
-        document.getElementById("registerName").value.trim();
-
-    const email =
-        document.getElementById("registerEmail").value.trim();
-
-    const password =
-        document.getElementById("registerPassword").value;
-
-    const confirmPassword =
-        document.getElementById("registerConfirm").value;
-
-
-    if(password !== confirmPassword){
-
-        message.textContent =
-            "Passwords match नहीं कर रहे हैं।";
-
-        return;
-    }
-
-
-    if(password.length < 6){
-
-        message.textContent =
-            "Password कम से कम 6 characters का होना चाहिए।";
-
-        return;
-    }
-
-
-    message.textContent =
-        "Account बनाया जा रहा है...";
-
-
-    try{
-
-        const { data, error } =
-            await supabaseClient.auth.signUp({
-
-                email: email,
-
-                password: password,
-
-                options: {
-
-                    data: {
-                        full_name: name
-                    }
-
-                }
-
-            });
-
-
-        if(error){
-
-            message.textContent =
-                error.message;
-
-            return;
-        }
-
-
-        if(data.user){
-
-            message.textContent =
-                "Account successfully created!";
-
-
-            /*
-            अगर Supabase में Email Confirmation ON है,
-            तो user को पहले email verify करना होगा।
-            */
-
-
-            if(data.session){
-
-                setTimeout(function(){
-
-                    window.location.href =
-                        "dashboard.html";
-
-                }, 1000);
-
-            }else{
-
-                message.textContent =
-                    "Account बन गया है। कृपया email verify करें, फिर Login करें।";
-
+    document.querySelectorAll('[data-view]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const viewId = this.getAttribute('data-view');
+            if (viewId === 'dashboard' && !localStorage.getItem('bh_user')) {
+                alert('कृपया पहले लॉगिन करें। (डेमो के लिए कोई भी ईमेल/पासवर्ड डालें)');
+                showView('login');
+                return;
             }
+            showView(viewId);
+        });
+    });
 
+    // ===== Register =====
+    function handleRegister(e) {
+        e.preventDefault();
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const pass = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regConfirm').value;
+        const msg = document.getElementById('regMsg');
+
+        if (pass !== confirm) {
+            msg.className = 'error-msg';
+            msg.textContent = '❌ पासवर्ड मेल नहीं खाते।';
+            return false;
         }
 
-    }catch(error){
+        localStorage.setItem('bh_user', JSON.stringify({ name, email }));
+        msg.className = 'success-msg';
+        msg.textContent = '✅ रजिस्ट्रेशन सफल! डैशबोर्ड पर भेजा जा रहा है...';
 
-        console.error(error);
-
-        message.textContent =
-            "Something went wrong. Please try again.";
-
+        setTimeout(() => {
+            document.getElementById('dashUserName').textContent = name;
+            showView('dashboard');
+            msg.textContent = '';
+        }, 1000);
+        return false;
     }
 
-}
+    // ===== Login =====
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const pass = document.getElementById('loginPassword').value;
+        const msg = document.getElementById('loginMsg');
 
-
-/* ================= LOGIN ================= */
-
-async function loginUser(event){
-
-    event.preventDefault();
-
-
-    const message =
-        document.getElementById("loginMessage");
-
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-
-    const password =
-        document.getElementById("loginPassword").value;
-
-
-    message.textContent =
-        "Login हो रहा है...";
-
-
-    try{
-
-        const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
-
-                email: email,
-
-                password: password
-
-            });
-
-
-        if(error){
-
-            message.textContent =
-                error.message;
-
-            return;
+        if (pass.length < 6) {
+            msg.className = 'error-msg';
+            msg.textContent = '❌ पासवर्ड कम से कम 6 अक्षर का होना चाहिए।';
+            return false;
         }
 
+        const name = email.split('@')[0];
+        localStorage.setItem('bh_user', JSON.stringify({ name, email }));
 
-        if(data.user){
+        msg.className = 'success-msg';
+        msg.textContent = '✅ लॉगिन सफल! डैशबोर्ड पर भेजा जा रहा है...';
 
-            message.textContent =
-                "Login successful!";
+        setTimeout(() => {
+            document.getElementById('dashUserName').textContent = name;
+            showView('dashboard');
+            msg.textContent = '';
+        }, 900);
+        return false;
+    }
 
+    // ===== Logout =====
+    function logout() {
+        localStorage.removeItem('bh_user');
+        alert('आप लॉगआउट हो गए हैं।');
+        showView('login');
+    }
 
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            }, 700);
-
+    // ===== Restore session =====
+    window.addEventListener('DOMContentLoaded', () => {
+        const user = localStorage.getItem('bh_user');
+        if (user) {
+            try {
+                const u = JSON.parse(user);
+                document.getElementById('dashUserName').textContent = u.name || 'उपयोगकर्ता';
+            } catch (err) { /* ignore */ }
         }
-
-    }catch(error){
-
-        console.error(error);
-
-        message.textContent =
-            "Something went wrong. Please try again.";
-
-    }
-
-}
-
-
-/* ================= LOGOUT ================= */
-
-async function logoutUser(){
-
-    const { error } =
-        await supabaseClient.auth.signOut();
-
-
-    if(error){
-
-        console.error(error);
-
-        return;
-    }
-
-
-    updateAuthUI(null);
-
-}
-
-
-/* ================= AUTH UI ================= */
-
-function updateAuthUI(user){
-
-    const guestButtons =
-        document.getElementById("guestButtons");
-
-    const loggedUser =
-        document.getElementById("loggedUser");
-
-    const navUserName =
-        document.getElementById("navUserName");
-
-
-    if(user){
-
-        guestButtons.style.display =
-            "none";
-
-        loggedUser.style.display =
-            "flex";
-
-
-        const fullName =
-            user.user_metadata?.full_name;
-
-
-        if(fullName){
-
-            navUserName.textContent =
-                fullName;
-
-        }else{
-
-            navUserName.textContent =
-                user.email.split("@")[0];
-
-        }
-
-    }else{
-
-        guestButtons.style.display =
-            "flex";
-
-        loggedUser.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* ================= AUTH STATE ================= */
-
-supabaseClient.auth.onAuthStateChange(
-    function(event, session){
-
-        if(session && session.user){
-
-            updateAuthUI(session.user);
-
-        }else{
-
-            updateAuthUI(null);
-
-        }
-
-    }
-);
-
-
-/* ================= CURRENT SESSION ================= */
-
-async function checkCurrentSession(){
-
-    const { data } =
-        await supabaseClient.auth.getSession();
-
-
-    if(data.session && data.session.user){
-
-        updateAuthUI(data.session.user);
-
-    }else{
-
-        updateAuthUI(null);
-
-    }
-
-}
-
-
-checkCurrentSession();
-
-
-/* ================= ESC KEY ================= */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Escape"){
-
-            closeAuth();
-
-        }
-
-    }
-);
-
+    });
 </script>
 
-    
 </body>
 </html>
